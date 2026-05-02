@@ -5,21 +5,32 @@
 (function () {
   'use strict';
 
+  const ROUTE_IDS = [
+    'home',
+    'products',
+    'about',
+    'project-mengqi',
+    'project-huangyan',
+    'project-echoes',
+    'project-skopein',
+    'project-tarantella',
+  ];
+
   /* ---- Product Data (with images per collection) ---- */
 
   const PRODUCTS = [
-    { id: 1,  name: 'OVERSIZED TEE',    price: 85,  collection: '夢棄少年',     img: 'photos/d1.jpg' },
-    { id: 2,  name: 'CARGO SHORTS',     price: 120, collection: '夢棄少年',     img: 'photos/d2.jpg' },
-    { id: 3,  name: 'WINDBREAKER',      price: 195, collection: '謊言以夏為終', img: 'photos/5$k1.jpg' },
-    { id: 4,  name: 'GRAPHIC HOODIE',   price: 150, collection: 'ECHOES EVENT', img: 'photos/e1.jpg' },
-    { id: 5,  name: 'WIDE LEG PANTS',   price: 135, collection: 'SKOPEIN FOBOS', img: 'photos/SKOPEIN FOBOS CAMPAIGN IG-01.png' },
-    { id: 6,  name: 'MESH TANK',        price: 65,  collection: 'TARANTELLA',   img: 'photos/5$k4.jpg' },
-    { id: 7,  name: 'TECH VEST',        price: 175, collection: '謊言以夏為終', img: 'photos/5$k2.jpg' },
-    { id: 8,  name: 'STRUCTURED CAP',   price: 55,  collection: 'ECHOES EVENT', img: 'photos/e2.jpg' },
-    { id: 9,  name: 'DRAPED SHIRT',     price: 110, collection: 'TARANTELLA',   img: 'photos/5$k5.jpg' },
-    { id: 10, name: 'UTILITY JACKET',   price: 220, collection: 'SKOPEIN FOBOS', img: 'photos/SKOPEIN FOBOS CAMPAIGN IG-02.png' },
-    { id: 11, name: 'CROPPED HOODIE',   price: 130, collection: '夢棄少年',     img: 'photos/d3.jpg' },
-    { id: 12, name: 'SPLIT-HEM PANTS',  price: 145, collection: '謊言以夏為終', img: 'photos/5$k3.jpg' },
+    { id: 1,  name: 'OVERSIZED TEE',    price: 85,  collection: '夢棄少年',     img: 'photos/d1.jpg', color: '#161615' },
+    { id: 2,  name: 'CARGO SHORTS',     price: 120, collection: '夢棄少年',     img: 'photos/d2.jpg', color: '#565657' },
+    { id: 3,  name: 'WINDBREAKER',      price: 195, collection: '謊言以夏為終', img: 'photos/5$k1.jpg', color: '#132406' },
+    { id: 4,  name: 'GRAPHIC HOODIE',   price: 150, collection: 'ECHOES', img: 'photos/e1.jpg', color: '#747259' },
+    { id: 5,  name: 'WIDE LEG PANTS',   price: 135, collection: 'SKOPEIN FOBOS', img: 'photos/SKOPEIN FOBOS CAMPAIGN IG-01.png', color: '#9e7e70' },
+    { id: 6,  name: 'MESH TANK',        price: 65,  collection: 'TARANTELLA',   img: 'photos/5$k4.jpg', color: '#0d2404' },
+    { id: 7,  name: 'TECH VEST',        price: 175, collection: '謊言以夏為終', img: 'photos/5$k2.jpg', color: '#0f2806' },
+    { id: 8,  name: 'STRUCTURED CAP',   price: 55,  collection: 'ECHOES', img: 'photos/e2.jpg', color: '#bbc9d0' },
+    { id: 9,  name: 'DRAPED SHIRT',     price: 110, collection: 'TARANTELLA',   img: 'photos/5$k5.jpg', color: '#0d2404' },
+    { id: 10, name: 'UTILITY JACKET',   price: 220, collection: 'SKOPEIN FOBOS', img: 'photos/SKOPEIN FOBOS CAMPAIGN IG-02.png', color: '#131416' },
+    { id: 11, name: 'CROPPED HOODIE',   price: 130, collection: '夢棄少年',     img: 'photos/d3.jpg', color: '#4f4c4a' },
+    { id: 12, name: 'SPLIT-HEM PANTS',  price: 145, collection: '謊言以夏為終', img: 'photos/5$k3.jpg', color: '#0d2205' },
   ];
 
   /* ---- DOM Cache ---- */
@@ -30,13 +41,9 @@
     nav:               document.getElementById('nav'),
     menuBtn:           document.getElementById('menuBtn'),
     menu:              document.getElementById('menu'),
-    cartBtn:           document.getElementById('cartBtn'),
-    cartCount:         document.getElementById('cartCount'),
     overlay:           document.getElementById('transitionOverlay'),
     scrollWrap:        document.getElementById('scrollWrap'),
     productsGrid:      document.getElementById('productsGrid'),
-    cartEmpty:         document.getElementById('cartEmpty'),
-    cartItems:         document.getElementById('cartItems'),
     waitlistForm:      document.getElementById('waitlistForm'),
     contactForm:       document.getElementById('contactForm'),
     aboutContactForm:  document.getElementById('aboutContactForm'),
@@ -76,19 +83,19 @@
   const smoothScroll = {
     current: 0,
     target: 0,
-    ease: 0.075,
+    ease: 0.08,
     enabled: false,
     rafId: null,
 
     init() {
-      this.enabled = !this.isTouchDevice() && window.innerWidth >= 768;
+      this.enabled = this.shouldUseLerp();
       if (this.enabled) {
         document.body.classList.add('lerp-active');
         this.setHeight();
         window.addEventListener('scroll', () => { this.target = window.scrollY; });
         window.addEventListener('resize', () => {
           const wasMobile = !this.enabled;
-          this.enabled = !this.isTouchDevice() && window.innerWidth >= 768;
+          this.enabled = this.shouldUseLerp();
           if (this.enabled && wasMobile) {
             document.body.classList.add('lerp-active');
             this.setHeight();
@@ -104,7 +111,11 @@
     },
 
     isTouchDevice() {
-      return 'ontouchstart' in window && window.innerWidth < 1024;
+      return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    },
+
+    shouldUseLerp() {
+      return window.innerWidth >= 1024 && !this.isTouchDevice();
     },
 
     setHeight() {
@@ -177,7 +188,6 @@
     observeReveals();
 
     if (page === 'products') renderProducts();
-    if (page === 'cart') renderCart();
   }
 
   /* ============================================
@@ -192,119 +202,16 @@
   }
 
   /* ============================================
-     CART
-     ============================================ */
-
-  let cart = JSON.parse(localStorage.getItem('hsiah-cart') || '[]');
-
-  function saveCart() {
-    localStorage.setItem('hsiah-cart', JSON.stringify(cart));
-    updateCartCount();
-  }
-
-  function updateCartCount() {
-    const count = cart.reduce((s, i) => s + i.qty, 0);
-    dom.cartCount.textContent = count;
-    dom.cartCount.style.display = count > 0 ? 'flex' : 'none';
-  }
-
-  function addToCart(productId) {
-    const product = PRODUCTS.find(p => p.id === productId);
-    if (!product) return;
-    const existing = cart.find(i => i.id === productId);
-    if (existing) {
-      existing.qty++;
-    } else {
-      cart.push({ id: product.id, name: product.name, price: product.price, img: product.img, qty: 1 });
-    }
-    saveCart();
-
-    const btn = document.querySelector(`[data-add-id="${productId}"]`);
-    if (btn) {
-      btn.textContent = 'ADDED ✓';
-      setTimeout(() => { btn.textContent = 'ADD TO CART'; }, 1200);
-    }
-  }
-
-  window.addToCart = addToCart;
-
-  function updateQty(id, delta) {
-    const item = cart.find(i => i.id === id);
-    if (!item) return;
-    item.qty += delta;
-    if (item.qty <= 0) {
-      cart = cart.filter(i => i.id !== id);
-    }
-    saveCart();
-    renderCart();
-  }
-
-  window.updateQty = updateQty;
-
-  function removeFromCart(id) {
-    cart = cart.filter(i => i.id !== id);
-    saveCart();
-    renderCart();
-  }
-
-  window.removeFromCart = removeFromCart;
-
-  function renderCart() {
-    if (cart.length === 0) {
-      dom.cartEmpty.style.display = 'block';
-      dom.cartItems.classList.remove('has-items');
-      dom.cartItems.innerHTML = '';
-      return;
-    }
-
-    dom.cartEmpty.style.display = 'none';
-    dom.cartItems.classList.add('has-items');
-
-    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-
-    dom.cartItems.innerHTML = cart.map(item => {
-      const imgStyle = item.img ? `background-image:url('${item.img}')` : '';
-      return `
-      <div class="cart-item">
-        <div class="cart-item__img" style="${imgStyle}"></div>
-        <div class="cart-item__info">
-          <p class="cart-item__name">${item.name}</p>
-          <p class="cart-item__price">$${item.price}</p>
-        </div>
-        <div class="cart-item__qty">
-          <button onclick="updateQty(${item.id}, -1)">−</button>
-          <span>${item.qty}</span>
-          <button onclick="updateQty(${item.id}, 1)">+</button>
-        </div>
-        <button class="cart-item__remove" onclick="removeFromCart(${item.id})">REMOVE</button>
-      </div>`;
-    }).join('') + `
-      <div class="cart-summary">
-        <div class="cart-summary__row">
-          <span>SUBTOTAL</span>
-          <span>$${total}</span>
-        </div>
-        <button class="btn btn--red btn--full">CHECKOUT</button>
-      </div>
-    `;
-
-    if (smoothScroll.enabled) {
-      requestAnimationFrame(() => smoothScroll.setHeight());
-    }
-  }
-
-  /* ============================================
      PRODUCTS RENDER
      ============================================ */
 
   function renderProducts() {
     dom.productsGrid.innerHTML = PRODUCTS.map((p, i) => `
       <div class="product-card" style="animation-delay:${i * 0.06}s">
-        <div class="product-card__img" style="background-image:url('${p.img}')"></div>
+        <div class="product-card__img" style="background-color:${p.color}; background-image:url('${p.img}')"></div>
         <p class="product-card__collection">${p.collection}</p>
         <h3 class="product-card__name">${p.name}</h3>
         <p class="product-card__price">$${p.price}</p>
-        <button class="product-card__add" data-add-id="${p.id}" onclick="addToCart(${p.id})">ADD TO CART</button>
       </div>
     `).join('');
 
@@ -377,10 +284,7 @@
   function bindEvents() {
     dom.menuBtn.addEventListener('click', toggleMenu);
 
-    dom.cartBtn.addEventListener('click', () => navigate('cart'));
-
     document.querySelectorAll('[data-page]').forEach(el => {
-      if (el.id === 'cartBtn') return;
       el.addEventListener('click', (e) => {
         e.preventDefault();
         const page = el.dataset.page;
@@ -405,7 +309,7 @@
 
   function init() {
     const hash = window.location.hash.replace('#', '');
-    const startPage = ['home', 'products', 'about', 'cart'].includes(hash) ? hash : 'home';
+    const startPage = ROUTE_IDS.includes(hash) ? hash : 'home';
 
     document.querySelectorAll('.page').forEach(p => {
       p.style.display = 'none';
@@ -420,16 +324,14 @@
     }
 
     if (startPage === 'products') renderProducts();
-    if (startPage === 'cart') renderCart();
 
     initHeroVideo();
-    updateCartCount();
     smoothScroll.init();
     observeReveals();
     bindEvents();
     onScroll();
 
-    setTimeout(dismissLoader, 1800);
+    setTimeout(dismissLoader, 900);
   }
 
   if (document.readyState === 'loading') {

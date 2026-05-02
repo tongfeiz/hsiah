@@ -10,6 +10,9 @@
   --light: #f0f0f0;
   --nav-h: 60px;
   --ease: cubic-bezier(0.7, 0, 0.3, 1);
+  /* Title ↔ poem ↔ credits rule: same value on section padding-top and credits margin-top; poem pad-y matches top/bottom of text */
+  --project-poem-pad-y: 1.15rem;
+  --project-poem-outside-gap: 3.25rem;
 }
 
 /* ---- Reset ---- */
@@ -102,8 +105,8 @@ body.lerp-active .scroll-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-              visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .loader.loaded {
@@ -118,7 +121,7 @@ body.lerp-active .scroll-wrap {
   background-color: var(--red);
   -webkit-mask: url('../photos/hsiahlogogood.png') center / contain no-repeat;
   mask: url('../photos/hsiahlogogood.png') center / contain no-repeat;
-  animation: loaderPulse 1.4s ease-in-out infinite;
+  animation: loaderPulse 0.7s ease-in-out infinite;
 }
 
 @keyframes loaderPulse {
@@ -202,34 +205,9 @@ body.lerp-active .scroll-wrap {
   width: auto;
 }
 
-.nav__cart-btn {
-  background: none;
-  border: none;
-  position: relative;
-  z-index: 110;
-  color: var(--black);
-  padding: 10px;
-  transition: color 0.3s ease;
-}
-
-.nav__cart-btn:hover {
-  color: var(--red);
-}
-
-.nav__cart-count {
-  position: absolute;
-  top: 4px;
-  right: 2px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--red);
-  color: var(--white);
-  font-size: 0.55rem;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
+.nav__spacer {
+  width: 42px;
+  flex-shrink: 0;
 }
 
 /* ============================================
@@ -263,7 +241,7 @@ body.lerp-active .scroll-wrap {
 }
 
 .menu__link {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
   font-weight: 300;
   letter-spacing: 0.15em;
   color: var(--white);
@@ -278,10 +256,13 @@ body.lerp-active .scroll-wrap {
   opacity: 1;
 }
 
-.menu.active .menu__link:nth-child(1) { transition-delay: 0.08s; }
-.menu.active .menu__link:nth-child(2) { transition-delay: 0.14s; }
-.menu.active .menu__link:nth-child(3) { transition-delay: 0.20s; }
-.menu.active .menu__link:nth-child(4) { transition-delay: 0.26s; }
+.menu.active .menu__link:nth-child(1) { transition-delay: 0.04s; }
+.menu.active .menu__link:nth-child(2) { transition-delay: 0.08s; }
+.menu.active .menu__link:nth-child(3) { transition-delay: 0.12s; }
+.menu.active .menu__link:nth-child(4) { transition-delay: 0.16s; }
+.menu.active .menu__link:nth-child(5) { transition-delay: 0.2s; }
+.menu.active .menu__link:nth-child(6) { transition-delay: 0.24s; }
+.menu.active .menu__link:nth-child(7) { transition-delay: 0.28s; }
 
 .menu__link:hover {
   color: var(--red);
@@ -425,6 +406,15 @@ body.lerp-active .scroll-wrap {
 
 .section {
   padding: 7rem 0;
+}
+
+.page[data-page^="project-"] > .page-header {
+  padding-bottom: 0;
+}
+
+/* Equals space from last poem line to credits rule when poems use --project-poem-pad-y */
+.page[data-page^="project-"] > .page-header + .section {
+  padding-top: var(--project-poem-outside-gap);
 }
 
 .section--dark {
@@ -846,22 +836,6 @@ body.lerp-active .scroll-wrap {
   font-size: 0.72rem;
   color: var(--gray);
   letter-spacing: 0.08em;
-  margin-bottom: 0.8rem;
-}
-
-.product-card__add {
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
-  background: var(--black);
-  color: var(--white);
-  border: none;
-  padding: 0.65rem 1.2rem;
-  transition: background 0.3s ease;
-  width: 100%;
-}
-
-.product-card__add:hover {
-  background: var(--red);
 }
 
 /* ============================================
@@ -875,19 +849,41 @@ body.lerp-active .scroll-wrap {
   align-items: start;
 }
 
-.about-text h2 {
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  margin-bottom: 2rem;
-  color: var(--red);
+.about-editorial {
+  text-align: left;
 }
 
-.about-text p {
+.about-quote {
+  margin: 0 0 2.5rem;
+  padding: 0;
+  border: none;
+}
+
+.about-quote p {
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--black);
+  letter-spacing: 0.02em;
+  text-align: left;
+}
+
+.about-quote cite {
+  display: block;
+  text-align: right;
+  font-style: normal;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-top: 0.85rem;
+}
+
+.about-body {
   font-size: 0.88rem;
   line-height: 1.9;
   color: #555;
-  margin-bottom: 1.2rem;
 }
 
 .about-image {
@@ -911,139 +907,230 @@ body.lerp-active .scroll-wrap {
   transform: scale(1.08);
 }
 
-.about-values {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
-}
-
-.about-value h3 {
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  margin-bottom: 1rem;
-  color: var(--red);
-}
-
-.about-value p {
-  font-size: 0.82rem;
-  line-height: 1.8;
-  color: var(--gray);
-}
-
 /* ============================================
-   CART
+   PROJECT PAGES
    ============================================ */
 
-.cart-empty {
-  text-align: center;
-  padding: 5rem 0;
+.project-copy {
+  max-width: 40rem;
+  margin-bottom: 2.75rem;
 }
 
-.cart-empty p {
-  font-size: 1rem;
-  letter-spacing: 0.25em;
+.project-copy + .project-grid {
+  margin-top: 0;
+}
+
+.project-poem {
+  font-size: 0.92rem;
+  line-height: 1.85;
+  color: #3a3a3a;
+  padding: var(--project-poem-pad-y) 0;
+  margin: 0;
+}
+
+.project-poem p {
+  margin: 0 0 1.15rem;
+}
+
+.project-poem p:last-child {
+  margin-bottom: 0;
+}
+
+.project-poem__epigraph {
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #2a2a2a;
+  margin-bottom: 1.45rem !important;
+}
+
+.project-poem--compact p {
+  margin-bottom: 0;
+}
+
+.project-poem--dialogue p {
+  margin-bottom: 0.9rem;
+  padding-left: 0.15em;
+}
+
+.project-poem__stanza {
+  margin-top: 1.45rem !important;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.project-prose {
+  font-size: 0.9rem;
+  line-height: 1.9;
+  color: #444;
+  padding: var(--project-poem-pad-y) 0;
+  margin: 0;
+}
+
+.project-prose p {
+  margin: 0 0 1.1rem;
+}
+
+.project-prose p:last-child {
+  margin-bottom: 0;
+}
+
+.project-credits {
+  margin-top: var(--project-poem-outside-gap);
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.project-credits__note {
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: #555;
+  margin: 0 0 1.5rem;
+  max-width: 38rem;
+}
+
+.project-credits__subhead {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--gray);
-  margin-bottom: 2rem;
+  margin: 1.25rem 0 0.5rem;
+  font-weight: 400;
 }
 
-.cart-items {
+.project-credits__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.78rem;
+  line-height: 1.75;
+  letter-spacing: 0.04em;
+  color: var(--black);
+}
+
+.project-credits__list--inline li {
+  margin: 0 0 0.45rem;
+  display: grid;
+  grid-template-columns: minmax(7rem, 11rem) 1fr;
+  gap: 0.75rem 1rem;
+  align-items: baseline;
+}
+
+.project-credits__list--tight {
+  margin-top: 1.25rem;
+}
+
+.credit-label {
+  color: var(--gray);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.project-credits__sublist {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0 0 0 0.15rem;
+  font-size: 0.78rem;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  color: #333;
+}
+
+.project-credits__sublist li {
+  margin-bottom: 0.35rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+.project-credits__footnote {
+  margin: 1.5rem 0 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--gray);
+  text-transform: uppercase;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+  gap: 1rem;
+}
+
+.project-grid__item {
+  background-color: var(--light);
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  position: relative;
+}
+
+.project-grid__item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: inherit;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-grid__item:hover::before {
+  transform: scale(1.05);
+}
+
+.project-grid__item--video::before {
   display: none;
 }
 
-.cart-items.has-items {
+.project-grid__video {
   display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.cart-item {
-  display: flex;
-  align-items: center;
-  padding: 1.5rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+.project-grid__item--tall {
+  grid-row: span 2;
+  aspect-ratio: auto;
 }
 
-.cart-item__img {
-  width: 80px;
-  height: 100px;
-  background-color: var(--light);
-  background-size: cover;
-  background-position: center;
-  flex-shrink: 0;
-  margin-right: 1.5rem;
+.project-grid__item--wide {
+  grid-column: span 2;
+  aspect-ratio: 21 / 9;
 }
 
-.cart-item__info {
-  flex: 1;
+.project-pager {
+  padding: 0 0 3rem;
 }
 
-.cart-item__name {
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  margin-bottom: 0.3rem;
-}
-
-.cart-item__price {
-  font-size: 0.75rem;
-  color: var(--gray);
-  letter-spacing: 0.08em;
-}
-
-.cart-item__qty {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin-right: 2rem;
-}
-
-.cart-item__qty button {
-  width: 28px;
-  height: 28px;
-  background: none;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.3s ease;
-}
-
-.cart-item__qty button:hover {
-  border-color: var(--black);
-}
-
-.cart-item__qty span {
-  font-size: 0.8rem;
-  min-width: 20px;
-  text-align: center;
-  letter-spacing: 0.05em;
-}
-
-.cart-item__remove {
-  background: none;
-  border: none;
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  color: var(--gray);
-  transition: color 0.3s ease;
-  padding: 0.5rem;
-}
-
-.cart-item__remove:hover {
-  color: var(--red);
-}
-
-.cart-summary {
-  padding: 2.5rem 0;
-  max-width: 360px;
-  margin-left: auto;
-}
-
-.cart-summary__row {
+.project-pager__inner {
   display: flex;
   justify-content: space-between;
-  font-size: 0.85rem;
-  letter-spacing: 0.15em;
-  margin-bottom: 2rem;
+  align-items: center;
+  gap: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.project-pager__link {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--gray);
+  text-transform: uppercase;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.project-pager__link:hover {
+  color: var(--red);
+  transform: translateX(-0.25rem);
+}
+
+.project-pager__link--next {
+  text-align: right;
+}
+
+.project-pager__link--next:hover {
+  transform: translateX(0.25rem);
 }
 
 /* ============================================
@@ -1117,11 +1204,6 @@ body.lerp-active .scroll-wrap {
     max-height: 400px;
   }
 
-  .about-values {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
   .collections-item__name {
     font-size: 1.3rem;
   }
@@ -1138,6 +1220,10 @@ body.lerp-active .scroll-wrap {
 
   .section {
     padding: 5rem 0;
+  }
+
+  .page[data-page^="project-"] > .page-header + .section {
+    padding-top: var(--project-poem-outside-gap);
   }
 
   .products-grid {
@@ -1168,6 +1254,34 @@ body.lerp-active .scroll-wrap {
     aspect-ratio: 4 / 3;
   }
 
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-grid__item--tall {
+    grid-row: span 1;
+    aspect-ratio: 4 / 3;
+  }
+
+  .project-grid__item--wide {
+    grid-column: span 1;
+    aspect-ratio: 4 / 3;
+  }
+
+  .project-credits__list--inline li {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .project-pager__inner {
+    gap: 1rem;
+  }
+
+  .project-pager__link {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+  }
+
   .contact-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
@@ -1184,19 +1298,6 @@ body.lerp-active .scroll-wrap {
   .hero__title {
     letter-spacing: 0.25em;
     margin-right: -0.25em;
-  }
-
-  .cart-item {
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .cart-item__qty {
-    margin-right: 0;
-  }
-
-  .cart-summary {
-    max-width: 100%;
   }
 }
 
