@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HSIAH「夏」</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/png" href="photos/hsiahlogogood.png">
 </head>
@@ -11,41 +14,153 @@
 
   <!-- Loader -->
   <div class="loader" id="loader">
-    <div class="loader__logo"></div>
+    <div class="loader__frame">
+      <span class="loader__corner loader__corner--tl" aria-hidden="true"></span>
+      <span class="loader__corner loader__corner--tr" aria-hidden="true"></span>
+      <span class="loader__corner loader__corner--bl" aria-hidden="true"></span>
+      <span class="loader__corner loader__corner--br" aria-hidden="true"></span>
+      <div class="loader__logo"></div>
+    </div>
   </div>
 
   <!-- Fixed Navigation -->
   <header class="nav" id="nav">
-    <button class="nav__menu-btn" id="menuBtn" aria-label="Menu">
+    <button class="nav__menu-btn" id="menuBtn" aria-label="Menu" data-i18n-aria="aria.menu" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
     </button>
+
+    <div class="nav__left-wrap">
+      <nav class="nav__left" aria-label="Primary">
+        <a class="nav__link" data-page="about" href="#about" data-i18n="nav.about">About</a>
+        <a class="nav__link" data-page="products" href="#products" data-i18n="nav.shop">Shop</a>
+        <a class="nav__link" data-page="featured" href="#featured" data-i18n="nav.featured">Featured</a>
+        <div class="nav__dropdown">
+          <button type="button" class="nav__link nav__dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            <span data-i18n="nav.archives">Archives</span>
+            <svg class="nav__chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.2"/></svg>
+          </button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li><a class="nav__dropdown-link" data-page="project-mengqi" href="#project-mengqi" role="menuitem">夢棄少年</a></li>
+            <li><a class="nav__dropdown-link" data-page="project-huangyan" href="#project-huangyan" role="menuitem">謊言以夏為終</a></li>
+            <li><a class="nav__dropdown-link" data-page="project-echoes" href="#project-echoes" role="menuitem">Echoes</a></li>
+            <li><a class="nav__dropdown-link" data-page="project-skopein" href="#project-skopein" role="menuitem">Skopein Fobos</a></li>
+            <li><a class="nav__dropdown-link" data-page="project-tarantella" href="#project-tarantella" role="menuitem">Tarantella</a></li>
+          </ul>
+        </div>
+        <a class="nav__link" data-page="about" href="#about" data-i18n="nav.contact">Contact</a>
+      </nav>
+    </div>
+
     <a class="nav__logo" data-page="home" href="#home">
       <img src="photos/brandtag.png" alt="HSIAH">
     </a>
-    <div class="nav__spacer" aria-hidden="true"></div>
+
+    <div class="nav__right-wrap">
+      <div class="nav__right">
+        <div class="nav__dropdown nav__dropdown--util" data-util="currency">
+          <button type="button" class="nav__util nav__dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            <span data-i18n="nav.currency.hk">Hong Kong | HKD $</span>
+            <svg class="nav__chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.2"/></svg>
+          </button>
+          <ul class="nav__dropdown-menu nav__dropdown-menu--right" role="menu">
+            <li><button type="button" class="nav__dropdown-link" role="menuitem" data-currency="hk" data-i18n="nav.currency.hk">Hong Kong | HKD $</button></li>
+            <li><button type="button" class="nav__dropdown-link" role="menuitem" data-currency="uk" data-i18n="nav.currency.uk">United Kingdom | GBP £</button></li>
+          </ul>
+        </div>
+        <div class="nav__dropdown nav__dropdown--util" data-util="language">
+          <button type="button" class="nav__util nav__dropdown-trigger" aria-expanded="false" aria-haspopup="true" id="langTrigger">
+            <span data-i18n="nav.lang.en" id="langTriggerLabel">English</span>
+            <svg class="nav__chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.2"/></svg>
+          </button>
+          <ul class="nav__dropdown-menu nav__dropdown-menu--right" role="menu">
+            <li><button type="button" class="nav__dropdown-link" role="menuitem" data-lang="en" data-i18n="nav.lang.en">English</button></li>
+            <li><button type="button" class="nav__dropdown-link" role="menuitem" data-lang="zh-Hant" data-i18n="nav.lang.zhHant">繁體中文</button></li>
+            <li><button type="button" class="nav__dropdown-link" role="menuitem" data-lang="zh-Hans" data-i18n="nav.lang.zhHans">简体中文</button></li>
+          </ul>
+        </div>
+        <button type="button" class="nav__icon-btn" aria-label="Search" data-i18n-aria="aria.search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        </button>
+        <button type="button" class="nav__icon-btn" aria-label="Account" data-i18n-aria="aria.account">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </button>
+        <a class="nav__icon-btn nav__icon-btn--bag" href="#cart" data-page="cart" aria-label="Shopping bag" data-i18n-aria="aria.bag" id="cartBagBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 7h12l-1.2 13H7.2L6 7z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+          <span class="nav__bag-count" id="cartBagCount" hidden aria-hidden="true">0</span>
+        </a>
+      </div>
+    </div>
   </header>
 
   <!-- Menu Overlay -->
   <div class="menu" id="menu">
-    <nav class="menu__inner">
-      <a class="menu__link" data-page="home" href="#home">HOME</a>
-      <a class="menu__link" data-page="project-mengqi" href="#project-mengqi">夢棄少年</a>
-      <a class="menu__link" data-page="project-huangyan" href="#project-huangyan">謊言以夏為終</a>
-      <a class="menu__link" data-page="project-echoes" href="#project-echoes">ECHOES</a>
-      <a class="menu__link" data-page="project-skopein" href="#project-skopein">SKOPEIN FOBOS</a>
-      <a class="menu__link" data-page="project-tarantella" href="#project-tarantella">TARANTELLA</a>
-      <a class="menu__link" data-page="about" href="#about">ABOUT</a>
+    <nav class="menu__inner" aria-label="Mobile">
+      <ul class="menu__list">
+        <li><a class="menu__link" data-page="about" href="#about" data-i18n="nav.about">About</a></li>
+        <li><a class="menu__link" data-page="products" href="#products" data-i18n="nav.shop">Shop</a></li>
+        <li><a class="menu__link" data-page="featured" href="#featured" data-i18n="nav.featured">Featured</a></li>
+        <li class="menu__group">
+          <button type="button" class="menu__toggle" aria-expanded="false" aria-controls="menuPanelArchives">
+            <span data-i18n="nav.archives">Archives</span>
+            <svg class="menu__chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.2"/></svg>
+          </button>
+          <div class="menu__panel" id="menuPanelArchives">
+            <div class="menu__panel-inner">
+              <a class="menu__option" data-page="project-mengqi" href="#project-mengqi">夢棄少年</a>
+              <a class="menu__option" data-page="project-huangyan" href="#project-huangyan">謊言以夏為終</a>
+              <a class="menu__option" data-page="project-echoes" href="#project-echoes">Echoes</a>
+              <a class="menu__option" data-page="project-skopein" href="#project-skopein">Skopein Fobos</a>
+              <a class="menu__option" data-page="project-tarantella" href="#project-tarantella">Tarantella</a>
+            </div>
+          </div>
+        </li>
+        <li><a class="menu__link" data-page="about" href="#about" data-i18n="nav.contact">Contact</a></li>
+        <li class="menu__group">
+          <button type="button" class="menu__toggle" aria-expanded="false" aria-controls="menuPanelCurrency">
+            <span data-i18n="nav.currencyLabel">Currency</span>
+            <svg class="menu__chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.2"/></svg>
+          </button>
+          <div class="menu__panel" id="menuPanelCurrency">
+            <div class="menu__panel-inner">
+              <button type="button" class="menu__option" data-currency="hk" data-i18n="nav.currency.hk">Hong Kong | HKD $</button>
+              <button type="button" class="menu__option" data-currency="uk" data-i18n="nav.currency.uk">United Kingdom | GBP £</button>
+            </div>
+          </div>
+        </li>
+        <li class="menu__group">
+          <button type="button" class="menu__toggle" aria-expanded="false" aria-controls="menuPanelLanguage">
+            <span data-i18n="nav.languageLabel">Language</span>
+            <svg class="menu__chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.2"/></svg>
+          </button>
+          <div class="menu__panel" id="menuPanelLanguage">
+            <div class="menu__panel-inner">
+              <button type="button" class="menu__option" data-lang="en" data-i18n="nav.lang.en">English</button>
+              <button type="button" class="menu__option" data-lang="zh-Hant" data-i18n="nav.lang.zhHant">繁體中文</button>
+              <button type="button" class="menu__option" data-lang="zh-Hans" data-i18n="nav.lang.zhHans">简体中文</button>
+            </div>
+          </div>
+        </li>
+        <li class="menu__group">
+          <button type="button" class="menu__toggle" aria-expanded="false" aria-controls="menuPanelAccount">
+            <span data-i18n="nav.account">Account</span>
+            <svg class="menu__chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.2"/></svg>
+          </button>
+          <div class="menu__panel" id="menuPanelAccount">
+            <div class="menu__panel-inner">
+              <button type="button" class="menu__option" data-i18n="nav.signIn">Sign in</button>
+            </div>
+          </div>
+        </li>
+      </ul>
     </nav>
-    <div class="menu__footer">
-      <p>EMAIL: HSIAHOFFICIAL@GMAIL.COM</p>
-      <p>INSTAGRAM: HSIAH.OFFICIAL</p>
-    </div>
   </div>
 
-  <!-- Page Transition Overlay -->
-  <div class="transition-overlay" id="transitionOverlay"></div>
+  <!-- Project Photo Lightbox -->
+  <div class="project-lightbox" id="projectLightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Photo detail view" data-i18n-aria="aria.lightbox">
+    <img class="project-lightbox__img" src="" alt="">
+  </div>
 
   <!-- Scroll Wrapper -->
   <div class="scroll-wrap" id="scrollWrap">
@@ -65,27 +180,27 @@
       <section class="section">
         <div class="container">
           <div class="reveal">
-            <h2 class="section__title">SHOP NEW COLLECTION</h2>
+            <h2 class="section__title" data-i18n="home.shopNewCollection">SHOP NEW COLLECTION</h2>
           </div>
           <div class="preview-grid">
-            <div class="preview-card reveal">
-              <div class="preview-card__img" style="background-color:#161615; background-image:url('photos/d1.jpg')"></div>
-              <h3 class="preview-card__name">OVERSIZED TEE</h3>
-              <p class="preview-card__price">$85</p>
-            </div>
-            <div class="preview-card reveal">
-              <div class="preview-card__img" style="background-color:#565657; background-image:url('photos/d2.jpg')"></div>
-              <h3 class="preview-card__name">CARGO SHORTS</h3>
-              <p class="preview-card__price">$120</p>
-            </div>
-            <div class="preview-card reveal">
-              <div class="preview-card__img" style="background-color:#747259; background-image:url('photos/e1.jpg')"></div>
-              <h3 class="preview-card__name">WINDBREAKER</h3>
-              <p class="preview-card__price">$195</p>
-            </div>
+            <a class="preview-card reveal" href="#product-embroidered-logo-tee" data-page="product-embroidered-logo-tee">
+              <div class="preview-card__img" style="background-color:#161615; background-image:url('photos/shopphotos/placeholderEmbroidered Logo Tee - Black .png')"></div>
+              <h3 class="preview-card__name">Embroidered Logo Tee - Black</h3>
+              <p class="preview-card__price" data-price-hkd="398">HK$398</p>
+            </a>
+            <a class="preview-card reveal" href="#product-bodycon-logo-tank" data-page="product-bodycon-logo-tank">
+              <div class="preview-card__img" style="background-color:#565657; background-image:url('photos/shopphotos/placeholderBodycon Logo Tank Top.png')"></div>
+              <h3 class="preview-card__name">Bodycon Logo Tank Top - Black/ Anthracite</h3>
+              <p class="preview-card__price" data-price-hkd="298">HK$298</p>
+            </a>
+            <a class="preview-card reveal" href="#product-chaotic-totem-bandana" data-page="product-chaotic-totem-bandana">
+              <div class="preview-card__img" style="background-color:#747259; background-image:url('photos/shopphotos/placeholderChaotic Totem Silk Bandana.png')"></div>
+              <h3 class="preview-card__name">Chaotic Totem Silk Bandana - Black/ Red</h3>
+              <p class="preview-card__price" data-price-hkd="298">HK$298</p>
+            </a>
           </div>
           <div class="reveal" style="text-align:center; margin-top:3rem;">
-            <a class="btn" data-page="products" href="#products">VIEW ALL PRODUCTS</a>
+            <a class="btn" data-page="products" href="#products" data-i18n="home.viewAll">VIEW ALL PRODUCTS</a>
           </div>
         </div>
       </section>
@@ -93,8 +208,8 @@
       <section class="section section--dark lookbook">
         <div class="container">
           <div class="reveal">
-            <h2 class="section__title">SUMMER LOOKBOOK</h2>
-            <p class="section__sub">A visual narrative of the season.</p>
+            <h2 class="section__title" data-i18n="home.lookbook">SUMMER LOOKBOOK</h2>
+            <p class="section__sub" data-i18n="home.lookbookSub">A visual narrative of the season.</p>
           </div>
           <div class="lookbook__grid reveal">
             <div class="lookbook__item lookbook__item--tall" style="background-color:#bebbbd; background-image:url('photos/SKOPEIN FOBOS CAMPAIGN IG-05.png')"></div>
@@ -108,7 +223,7 @@
       <section class="section">
         <div class="container">
           <div class="reveal">
-            <h2 class="section__title">COLLECTIONS</h2>
+            <h2 class="section__title" data-i18n="home.collections">COLLECTIONS</h2>
           </div>
           <div class="collections-list">
             <a class="collections-item reveal" data-page="project-mengqi" href="#project-mengqi">
@@ -143,11 +258,11 @@
       <section class="section section--dark">
         <div class="container">
           <div class="reveal">
-            <h2 class="section__title">JOIN THE WAITLIST</h2>
-            <p class="section__sub">Be the first to know about new drops and exclusive access.</p>
+            <h2 class="section__title" data-i18n="home.waitlist">JOIN THE WAITLIST</h2>
+            <p class="section__sub" data-i18n="home.waitlistSub">Be the first to know about new drops and exclusive access.</p>
             <form class="waitlist-form" id="waitlistForm">
               <div class="waitlist-form__wrap">
-                <input type="email" placeholder="ENTER YOUR EMAIL" required>
+                <input type="email" placeholder="ENTER YOUR EMAIL" data-i18n-placeholder="home.waitlistPlaceholder" required>
                 <button type="submit">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </button>
@@ -160,28 +275,28 @@
       <section class="section">
         <div class="container">
           <div class="reveal">
-            <h2 class="section__title">CONTACT US</h2>
+            <h2 class="section__title" data-i18n="home.contact">CONTACT US</h2>
           </div>
           <div class="contact-grid reveal">
             <div class="contact-info">
               <div class="contact-info__block">
-                <h3>EMAIL</h3>
+                <h3 data-i18n="home.email">EMAIL</h3>
                 <p>HSIAHOFFICIAL@GMAIL.COM</p>
               </div>
               <div class="contact-info__block">
-                <h3>INSTAGRAM</h3>
+                <h3 data-i18n="home.instagram">INSTAGRAM</h3>
                 <p>HSIAH.OFFICIAL</p>
               </div>
               <div class="contact-info__block">
-                <h3>LOCATION</h3>
-                <p>WORLDWIDE</p>
+                <h3 data-i18n="home.location">LOCATION</h3>
+                <p data-i18n="home.worldwide">WORLDWIDE</p>
               </div>
             </div>
             <form class="contact-form" id="contactForm">
-              <input type="text" placeholder="NAME" required>
-              <input type="email" placeholder="EMAIL" required>
-              <textarea placeholder="MESSAGE" rows="4" required></textarea>
-              <button type="submit" class="btn btn--red">SEND MESSAGE</button>
+              <input type="text" placeholder="NAME" data-i18n-placeholder="form.name" required>
+              <input type="email" placeholder="EMAIL" data-i18n-placeholder="form.email" required>
+              <textarea placeholder="MESSAGE" data-i18n-placeholder="form.message" rows="4" required></textarea>
+              <button type="submit" class="btn btn--red" data-i18n="form.send">SEND MESSAGE</button>
             </form>
           </div>
         </div>
@@ -191,7 +306,7 @@
         <div class="container">
           <div class="footer__inner">
             <p>&copy; 2026 HSIAH「夏」</p>
-            <p>ALL RIGHTS RESERVED</p>
+            <p data-i18n="footer.rights">ALL RIGHTS RESERVED</p>
           </div>
         </div>
       </footer>
@@ -201,16 +316,63 @@
     <!-- ===================== PRODUCTS ===================== -->
     <main class="page" data-page="products" id="pageProducts">
 
+      <section class="section section--shop">
+        <div class="container" id="shopSections"></div>
+      </section>
+
+      <footer class="footer">
+        <div class="container">
+          <div class="footer__inner">
+            <p>&copy; 2026 HSIAH「夏」</p>
+            <p data-i18n="footer.rights">ALL RIGHTS RESERVED</p>
+          </div>
+        </div>
+      </footer>
+
+    </main>
+
+    <!-- ===================== CART / BAG ===================== -->
+    <main class="page" data-page="cart" id="pageCart">
+      <section class="section section--cart">
+        <div class="container" id="cartContent"></div>
+      </section>
+      <footer class="footer">
+        <div class="container">
+          <div class="footer__inner">
+            <p>&copy; 2026 HSIAH「夏」</p>
+            <p data-i18n="footer.rights">ALL RIGHTS RESERVED</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- ===================== PRODUCT DETAIL ===================== -->
+    <main class="page" data-page="product" id="pageProduct">
+      <section class="section section--pdp">
+        <div class="container" id="productDetail"></div>
+      </section>
+      <footer class="footer">
+        <div class="container">
+          <div class="footer__inner">
+            <p>&copy; 2026 HSIAH「夏」</p>
+            <p data-i18n="footer.rights">ALL RIGHTS RESERVED</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- ===================== FEATURED ===================== -->
+    <main class="page" data-page="featured" id="pageFeatured">
+
       <section class="page-header">
         <div class="container">
-          <h1 class="page-header__title reveal">PRODUCTS</h1>
-          <p class="page-header__sub reveal">EXPLORE THE FULL RANGE</p>
+          <h1 class="page-header__title reveal" data-i18n="page.featured">FEATURED</h1>
         </div>
       </section>
 
       <section class="section">
         <div class="container">
-          <div class="products-grid" id="productsGrid"></div>
+          <div class="featured-masonry reveal" id="featuredGrid"></div>
         </div>
       </section>
 
@@ -218,7 +380,7 @@
         <div class="container">
           <div class="footer__inner">
             <p>&copy; 2026 HSIAH「夏」</p>
-            <p>ALL RIGHTS RESERVED</p>
+            <p data-i18n="footer.rights">ALL RIGHTS RESERVED</p>
           </div>
         </div>
       </footer>
@@ -230,7 +392,7 @@
 
       <section class="page-header">
         <div class="container">
-          <h1 class="page-header__title reveal">ABOUT</h1>
+          <h1 class="page-header__title reveal" data-i18n="page.about">ABOUT</h1>
         </div>
       </section>
 
@@ -239,10 +401,10 @@
           <div class="about-content reveal">
             <div class="about-editorial">
               <blockquote class="about-quote">
-                <p>“Solace is found in the hallucinations of dreamers.”</p>
+                <p data-i18n="about.quote">“Solace is found in the hallucinations of dreamers.”</p>
                 <cite>— HSIAH</cite>
               </blockquote>
-              <p class="about-body">Established in 2025, HSIAH is the eponymous label of designer Theo Hsiah. Hsiah interprets silhouettes and clothing through a surrealist lens, blending blurry memories of culture, experiences, and moments throughout his life. Guided by a strong belief in drawing inspiration from the subconscious mind, Hsiah takes bizarre actions to curate his collections. With a strong devotion to digital and traditional pattern-cutting alongside craftsmanship, Hsiah explores fashion as a medium to curate a visual memoir of his life, to which he can find solace when his mind becomes lonely.</p>
+              <p class="about-body" data-i18n="about.body">Established in 2025, HSIAH is the eponymous label of designer Theo Hsiah. Hsiah interprets silhouettes and clothing through a surrealist lens, blending blurry memories of culture, experiences, and moments throughout his life. Guided by a strong belief in drawing inspiration from the subconscious mind, Hsiah takes bizarre actions to curate his collections. With a strong devotion to digital and traditional pattern-cutting alongside craftsmanship, Hsiah explores fashion as a medium to curate a visual memoir of his life, to which he can find solace when his mind becomes lonely.</p>
             </div>
             <div class="about-image" style="background-color:#111415; background-image:url('photos/SKOPEIN FOBOS CAMPAIGN IG-03.png')"></div>
           </div>
@@ -252,24 +414,24 @@
       <section class="section">
         <div class="container">
           <div class="reveal">
-            <h2 class="section__title">GET IN TOUCH</h2>
+            <h2 class="section__title" data-i18n="about.getInTouch">GET IN TOUCH</h2>
           </div>
           <div class="contact-grid reveal">
             <div class="contact-info">
               <div class="contact-info__block">
-                <h3>EMAIL</h3>
+                <h3 data-i18n="home.email">EMAIL</h3>
                 <p>HSIAHOFFICIAL@GMAIL.COM</p>
               </div>
               <div class="contact-info__block">
-                <h3>INSTAGRAM</h3>
+                <h3 data-i18n="home.instagram">INSTAGRAM</h3>
                 <p>HSIAH.OFFICIAL</p>
               </div>
             </div>
             <form class="contact-form" id="aboutContactForm">
-              <input type="text" placeholder="NAME" required>
-              <input type="email" placeholder="EMAIL" required>
-              <textarea placeholder="MESSAGE" rows="4" required></textarea>
-              <button type="submit" class="btn btn--red">SEND MESSAGE</button>
+              <input type="text" placeholder="NAME" data-i18n-placeholder="form.name" required>
+              <input type="email" placeholder="EMAIL" data-i18n-placeholder="form.email" required>
+              <textarea placeholder="MESSAGE" data-i18n-placeholder="form.message" rows="4" required></textarea>
+              <button type="submit" class="btn btn--red" data-i18n="form.send">SEND MESSAGE</button>
             </form>
           </div>
         </div>
@@ -279,7 +441,7 @@
         <div class="container">
           <div class="footer__inner">
             <p>&copy; 2026 HSIAH「夏」</p>
-            <p>ALL RIGHTS RESERVED</p>
+            <p data-i18n="footer.rights">ALL RIGHTS RESERVED</p>
           </div>
         </div>
       </footer>
@@ -288,71 +450,74 @@
 
     <!-- ===================== PROJECT: 夢棄少年 ===================== -->
     <main class="page" data-page="project-mengqi" id="pageProjectMengqi">
-      <section class="page-header">
-        <div class="container">
-          <h1 class="page-header__title reveal">夢棄少年</h1>
-        </div>
-      </section>
-      <section class="section">
-        <div class="container">
-          <div class="project-copy reveal">
-            <div class="project-poem">
+      <div class="project-layout">
+        <aside class="project-layout__side">
+          <h1 class="project-layout__title">夢棄少年</h1>
+          <div class="project-layout__meta">
+            <div class="project-credits">
+              <ul class="project-credits__list project-credits__list--inline">
+                <li><span class="credit-label" data-i18n="credits.garments">Garments.</span> HSIAH</li>
+                <li><span class="credit-label" data-i18n="credits.model">Model.</span> Constance Hsiah and Charlie Poon</li>
+                <li><span class="credit-label" data-i18n="credits.creativeDirection">Creative Direction.</span> Jasmin Sin</li>
+                <li><span class="credit-label" data-i18n="credits.photography">Photography.</span> Din Trota</li>
+                <li><span class="credit-label" data-i18n="credits.editor">Editor.</span> Leo Seitz</li>
+                <li><span class="credit-label" data-i18n="credits.stylist">Stylist.</span> Feyza Berca Senturk</li>
+                <li><span class="credit-label" data-i18n="credits.assistant">Assistant.</span> Samantha Lam</li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+        <div class="project-layout__scroll">
+          <div class="project-layout__content">
+            <div class="project-poem reveal">
               <p class="project-poem__epigraph">“I always thought that my dreams would lie next to me on my deathbed; never would I imagine that even they could abandon me.”</p>
               <p>Lives guided by dreams, anchoring our very existence,<br>They may fade, but rest assured, they resurface,<br>I was never told they would renounce me,<br>They renounced me.</p>
               <p>My dreams filled me with conviction,<br>Decisions ascertained by their very being,<br>Yet at the age of 20,<br>I lay deserted.</p>
               <p>I think back to when dreams whispered in my ear:<br>“You’ll be a revolutionary,”<br>“You’ll be a visionary.”<br>Now their whispers no longer echo, and I no longer try.</p>
             </div>
-            <div class="project-credits">
-              <ul class="project-credits__list project-credits__list--inline">
-                <li><span class="credit-label">Garments.</span> HSIAH</li>
-                <li><span class="credit-label">Model.</span> Constance Hsiah and Charlie Poon</li>
-                <li><span class="credit-label">Creative Direction.</span> Jasmin Sin</li>
-                <li><span class="credit-label">Photography.</span> Din Trota</li>
-                <li><span class="credit-label">Editor.</span> Leo Seitz</li>
-                <li><span class="credit-label">Stylist.</span> Feyza Berca Senturk</li>
-                <li><span class="credit-label">Assistant.</span> Samantha Lam</li>
-              </ul>
+            <div class="project-grid reveal">
+              <div class="project-grid__item"><img src="photos/1. 夢棄少年/DSCF4003r4mbi.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/1. 夢棄少年/DSCF4011r4mbi.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/1. 夢棄少年/DSCF4034r4mbi.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/1. 夢棄少年/DSCF4119r4mbi.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/1. 夢棄少年/DSCF4139r4mbi.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/1. 夢棄少年/DSCF4250r4mbi.webp" alt="" loading="lazy"></div>
             </div>
-          </div>
-          <div class="project-grid reveal">
-            <div class="project-grid__item" style="background-color:#181711; background-image:url('photos/1. 夢棄少年/DSCF4003r4mbi.webp')"></div>
-            <div class="project-grid__item" style="background-color:#dde7ea; background-image:url('photos/1. 夢棄少年/DSCF4011r4mbi.webp')"></div>
-            <div class="project-grid__item project-grid__item--wide" style="background-color:#171610; background-image:url('photos/1. 夢棄少年/DSCF4034r4mbi.webp')"></div>
-            <div class="project-grid__item" style="background-color:#1b1810; background-image:url('photos/1. 夢棄少年/DSCF4119r4mbi.webp')"></div>
-            <div class="project-grid__item" style="background-color:#80785c; background-image:url('photos/1. 夢棄少年/DSCF4139r4mbi.webp')"></div>
-            <div class="project-grid__item" style="background-color:#c0a26d; background-image:url('photos/1. 夢棄少年/DSCF4250r4mbi.webp')"></div>
+            <nav class="project-pager reveal" aria-label="Project navigation" data-i18n-aria="aria.projectNav">
+              <div class="project-pager__inner">
+                <a class="project-pager__link" data-page="project-tarantella" href="#project-tarantella">&lt; TARANTELLA</a>
+                <a class="project-pager__link project-pager__link--next" data-page="project-huangyan" href="#project-huangyan">謊言以夏為終 &gt;</a>
+              </div>
+            </nav>
           </div>
         </div>
-      </section>
-      <nav class="project-pager reveal" aria-label="Project navigation">
-        <div class="container">
-          <div class="project-pager__inner">
-            <a class="project-pager__link" data-page="project-tarantella" href="#project-tarantella">&lt; TARANTELLA</a>
-            <a class="project-pager__link project-pager__link--next" data-page="project-huangyan" href="#project-huangyan">謊言以夏為終 &gt;</a>
-          </div>
-        </div>
-      </nav>
-      <footer class="footer">
-        <div class="container">
-          <div class="footer__inner">
-            <p>&copy; 2026 HSIAH「夏」</p>
-            <p>ALL RIGHTS RESERVED</p>
-          </div>
-        </div>
-      </footer>
+      </div>
     </main>
 
     <!-- ===================== PROJECT: 謊言以夏為終 ===================== -->
     <main class="page" data-page="project-huangyan" id="pageProjectHuangyan">
-      <section class="page-header">
-        <div class="container">
-          <h1 class="page-header__title reveal">謊言以夏為終</h1>
-        </div>
-      </section>
-      <section class="section">
-        <div class="container">
-          <div class="project-copy reveal">
-            <div class="project-poem">
+      <div class="project-layout">
+        <aside class="project-layout__side">
+          <h1 class="project-layout__title">謊言以夏為終</h1>
+          <div class="project-layout__meta">
+            <div class="project-credits">
+              <p class="project-credits__note" data-i18n="project.huangyan.note">Collection in collaboration with California-based multidisciplinary artist Tongfei Zhu.</p>
+              <ul class="project-credits__list project-credits__list--inline">
+                <li><span class="credit-label" data-i18n="credits.garments">Garments.</span> HSIAH</li>
+                <li><span class="credit-label" data-i18n="credits.graphics">Graphics.</span> Tongfei Zhu</li>
+                <li><span class="credit-label" data-i18n="credits.model">Model.</span> Constance Hsiah and Maya Yoshino</li>
+                <li><span class="credit-label" data-i18n="credits.creativeDirection">Creative Direction.</span> Jasmin Sin</li>
+                <li><span class="credit-label" data-i18n="credits.photography">Photography.</span> Din Trota</li>
+                <li><span class="credit-label" data-i18n="credits.editor">Editor.</span> Leo Seitz</li>
+                <li><span class="credit-label" data-i18n="credits.stylist">Stylist.</span> Feyza Berca Senturk</li>
+                <li><span class="credit-label" data-i18n="credits.assistant">Assistant.</span> Samantha Lam</li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+        <div class="project-layout__scroll">
+          <div class="project-layout__content">
+            <div class="project-poem reveal">
               <p>I am a liar,<br>Depictions of romance ushers empty gestures and words.</p>
               <p>I lied about who I was,<br>In turn, I lied about who I could be.</p>
               <p>I lied about how I felt,<br>In turn, I felt envy of my dreams.</p>
@@ -361,184 +526,153 @@
               <p>My brazen lies will no longer bring harm,<br>No betrayal of the name,<br>No suffering of the soul,</p>
               <p>And so I concur,<br>“The lies end in summer.”</p>
             </div>
-            <div class="project-credits">
-              <p class="project-credits__note">Collection in collaboration with California-based multidisciplinary artist Tongfei Zhu.</p>
-              <ul class="project-credits__list project-credits__list--inline">
-                <li><span class="credit-label">Garments.</span> HSIAH</li>
-                <li><span class="credit-label">Graphics.</span> Tongfei Zhu</li>
-                <li><span class="credit-label">Model.</span> Constance Hsiah and Maya Yoshino</li>
-                <li><span class="credit-label">Creative Direction.</span> Jasmin Sin</li>
-                <li><span class="credit-label">Photography.</span> Din Trota</li>
-                <li><span class="credit-label">Editor.</span> Leo Seitz</li>
-                <li><span class="credit-label">Stylist.</span> Feyza Berca Senturk</li>
-                <li><span class="credit-label">Assistant.</span> Samantha Lam</li>
-              </ul>
+            <div class="project-grid reveal">
+              <div class="project-grid__item"><img src="photos/2. 謊言以夏為終/DSC00090.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/2. 謊言以夏為終/DSC00114 copy.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/2. 謊言以夏為終/DSC00133 copy.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/2. 謊言以夏為終/IMG_1950 3.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/2. 謊言以夏為終/IMG_1953 3.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/2. 謊言以夏為終/IMG_1954 3.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/2. 謊言以夏為終/IMG_1955 3.webp" alt="" loading="lazy"></div>
             </div>
-          </div>
-          <div class="project-grid reveal">
-            <div class="project-grid__item project-grid__item--tall" style="background-color:#161615; background-image:url('photos/2. 謊言以夏為終/DSC00090.webp')"></div>
-            <div class="project-grid__item" style="background-color:#555656; background-image:url('photos/2. 謊言以夏為終/DSC00114 copy.webp')"></div>
-            <div class="project-grid__item" style="background-color:#16120f; background-image:url('photos/2. 謊言以夏為終/DSC00133 copy.webp')"></div>
-            <div class="project-grid__item project-grid__item--wide" style="background-color:#0f2806; background-image:url('photos/2. 謊言以夏為終/IMG_1950 3.webp')"></div>
-            <div class="project-grid__item" style="background-color:#0d2205; background-image:url('photos/2. 謊言以夏為終/IMG_1953 3.webp')"></div>
-            <div class="project-grid__item" style="background-color:#0d2405; background-image:url('photos/2. 謊言以夏為終/IMG_1954 3.webp')"></div>
-            <div class="project-grid__item" style="background-color:#0d2404; background-image:url('photos/2. 謊言以夏為終/IMG_1955 3.webp')"></div>
+            <nav class="project-pager reveal" aria-label="Project navigation" data-i18n-aria="aria.projectNav">
+              <div class="project-pager__inner">
+                <a class="project-pager__link" data-page="project-mengqi" href="#project-mengqi">&lt; 夢棄少年</a>
+                <a class="project-pager__link project-pager__link--next" data-page="project-echoes" href="#project-echoes">ECHOES &gt;</a>
+              </div>
+            </nav>
           </div>
         </div>
-      </section>
-      <nav class="project-pager reveal" aria-label="Project navigation">
-        <div class="container">
-          <div class="project-pager__inner">
-            <a class="project-pager__link" data-page="project-mengqi" href="#project-mengqi">&lt; 夢棄少年</a>
-            <a class="project-pager__link project-pager__link--next" data-page="project-echoes" href="#project-echoes">ECHOES &gt;</a>
-          </div>
-        </div>
-      </nav>
-      <footer class="footer">
-        <div class="container">
-          <div class="footer__inner">
-            <p>&copy; 2026 HSIAH「夏」</p>
-            <p>ALL RIGHTS RESERVED</p>
-          </div>
-        </div>
-      </footer>
+      </div>
     </main>
 
     <!-- ===================== PROJECT: ECHOES ===================== -->
     <main class="page" data-page="project-echoes" id="pageProjectEchoes">
-      <section class="page-header">
-        <div class="container">
-          <h1 class="page-header__title reveal">ECHOES</h1>
-        </div>
-      </section>
-      <section class="section">
-        <div class="container">
-          <div class="project-copy reveal">
-            <div class="project-prose">
-              <p>ECHOES was a collaborative fashion showcase curated by Turkish Designer Feyza Berca Senturk at Galleria Objets in London. HSIAH was featured as one of the designers, debuting their recent collections alongside Feyza and Erika Kaija. A fusion of fashion, performance art, and culinary practices, Feyza harmonized these disciplines into a contemporary exhibition.</p>
-              <p>As per the showcase, HSIAH debuted its latest collections “夢棄少年” and “謊言以夏為終”, blending contemporary ideologies with cultural silhouettes.</p>
-            </div>
+      <div class="project-layout">
+        <aside class="project-layout__side">
+          <h1 class="project-layout__title">ECHOES</h1>
+          <div class="project-layout__meta">
             <div class="project-credits">
               <ul class="project-credits__list project-credits__list--inline">
-                <li><span class="credit-label">Organizer.</span> Feyza Berca Senturk</li>
-                <li><span class="credit-label">Collections.</span> Feyza Berca &nbsp; HSIAH &nbsp; Erika Kaija</li>
+                <li><span class="credit-label" data-i18n="credits.organizer">Organizer.</span> Feyza Berca Senturk</li>
+                <li><span class="credit-label" data-i18n="credits.collections">Collections.</span> Feyza Berca &nbsp; HSIAH &nbsp; Erika Kaija</li>
               </ul>
-              <p class="project-credits__subhead">Performances.</p>
+              <p class="project-credits__subhead" data-i18n="credits.performances">Performances.</p>
               <ul class="project-credits__sublist">
                 <li>Ural Turan X Gunes Dincer</li>
                 <li>Nisan Akdag X Fede Rico</li>
                 <li>Petrichor X Lara Girling Gruas</li>
               </ul>
               <ul class="project-credits__list project-credits__list--inline project-credits__list--tight">
-                <li><span class="credit-label">Spatial and Exhibition Design.</span> Eda Coskun and Feyza Berca Senturk</li>
-                <li><span class="credit-label">Assist.</span> Zeynep Kerpisci</li>
-                <li><span class="credit-label">Location.</span> Galleria Objets</li>
+                <li><span class="credit-label" data-i18n="credits.spatialExhibition">Spatial and Exhibition Design.</span> Eda Coskun and Feyza Berca Senturk</li>
+                <li><span class="credit-label" data-i18n="credits.assist">Assist.</span> Zeynep Kerpisci</li>
+                <li><span class="credit-label" data-i18n="credits.location">Location.</span> Galleria Objets</li>
               </ul>
             </div>
           </div>
-          <div class="project-grid reveal">
-            <div class="project-grid__item project-grid__item--wide project-grid__item--video" style="background-color:#111111">
-              <video class="project-grid__video" src="photos/3. ECHOES /High Res Blue.webm" autoplay muted loop playsinline controls></video>
+        </aside>
+        <div class="project-layout__scroll">
+          <div class="project-layout__content">
+            <div class="project-prose reveal">
+              <p data-i18n="project.echoes.p1">ECHOES was a collaborative fashion showcase curated by Turkish Designer Feyza Berca Senturk at Galleria Objets in London. HSIAH was featured as one of the designers, debuting their recent collections alongside Feyza and Erika Kaija. A fusion of fashion, performance art, and culinary practices, Feyza harmonized these disciplines into a contemporary exhibition.</p>
+              <p data-i18n="project.echoes.p2">As per the showcase, HSIAH debuted its latest collections “夢棄少年” and “謊言以夏為終”, blending contemporary ideologies with cultural silhouettes.</p>
             </div>
-            <div class="project-grid__item" style="background-color:#070505; background-image:url('photos/3. ECHOES /ECHOES GARMENTS-7.webp')"></div>
-            <div class="project-grid__item" style="background-color:#181511; background-image:url('photos/3. ECHOES /ECHOES GARMENTS-18.webp')"></div>
-            <div class="project-grid__item project-grid__item--wide" style="background-color:#121310; background-image:url('photos/3. ECHOES /ECHOES GARMENTS-51.webp')"></div>
+            <div class="project-grid reveal">
+              <div class="project-grid__item project-grid__item--video">
+                <video class="project-grid__video" src="photos/3. ECHOES /High Res Blue.webm" autoplay muted loop playsinline controls></video>
+              </div>
+              <div class="project-grid__item"><img src="photos/3. ECHOES /ECHOES GARMENTS-7.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/3. ECHOES /ECHOES GARMENTS-18.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/3. ECHOES /ECHOES GARMENTS-51.webp" alt="" loading="lazy"></div>
+            </div>
+            <nav class="project-pager reveal" aria-label="Project navigation" data-i18n-aria="aria.projectNav">
+              <div class="project-pager__inner">
+                <a class="project-pager__link" data-page="project-huangyan" href="#project-huangyan">&lt; 謊言以夏為終</a>
+                <a class="project-pager__link project-pager__link--next" data-page="project-skopein" href="#project-skopein">SKOPEIN FOBOS &gt;</a>
+              </div>
+            </nav>
           </div>
         </div>
-      </section>
-      <nav class="project-pager reveal" aria-label="Project navigation">
-        <div class="container">
-          <div class="project-pager__inner">
-            <a class="project-pager__link" data-page="project-huangyan" href="#project-huangyan">&lt; 謊言以夏為終</a>
-            <a class="project-pager__link project-pager__link--next" data-page="project-skopein" href="#project-skopein">SKOPEIN FOBOS &gt;</a>
-          </div>
-        </div>
-      </nav>
-      <footer class="footer">
-        <div class="container">
-          <div class="footer__inner">
-            <p>&copy; 2026 HSIAH「夏」</p>
-            <p>ALL RIGHTS RESERVED</p>
-          </div>
-        </div>
-      </footer>
+      </div>
     </main>
 
     <!-- ===================== PROJECT: SKOPEIN FOBOS ===================== -->
     <main class="page" data-page="project-skopein" id="pageProjectSkopein">
-      <section class="page-header">
-        <div class="container">
-          <h1 class="page-header__title reveal">SKOPEIN FOBOS</h1>
-        </div>
-      </section>
-      <section class="section">
-        <div class="container">
-          <div class="project-copy reveal">
-            <div class="project-poem project-poem--compact">
+      <div class="project-layout">
+        <aside class="project-layout__side">
+          <h1 class="project-layout__title">SKOPEIN FOBOS</h1>
+          <div class="project-layout__meta">
+            <div class="project-credits">
+              <p class="project-credits__note" data-i18n="project.skopein.note">A fashion short film done in collaboration with film brother duo Hwang Broz.</p>
+              <ul class="project-credits__list project-credits__list--inline">
+                <li><span class="credit-label" data-i18n="credits.garments">Garments.</span> HSIAH</li>
+                <li><span class="credit-label" data-i18n="credits.director">Director.</span> HWANG BROZ</li>
+                <li><span class="credit-label" data-i18n="credits.dop">DoP.</span> Yuming Huang</li>
+                <li><span class="credit-label" data-i18n="credits.actress">Actress.</span> Constance Hsiah and Chu Qi</li>
+                <li><span class="credit-label" data-i18n="credits.productionDesign">Production Design.</span> Alice Han - DZZI Studio</li>
+                <li><span class="credit-label" data-i18n="credits.artAssist">Art Assist.</span> Yaqi Li</li>
+                <li><span class="credit-label" data-i18n="credits.composer">Composer.</span> Jean Aviat</li>
+                <li><span class="credit-label" data-i18n="credits.hmua">HMUA.</span> Kyra Lui</li>
+                <li><span class="credit-label" data-i18n="credits.photography">Photography.</span> Chen Lin</li>
+                <li><span class="credit-label" data-i18n="credits.stylist">Stylist.</span> Zeynep Kerpisci</li>
+                <li><span class="credit-label" data-i18n="credits.jewellery">Jewellery.</span> Feyza Berca Senturk</li>
+              </ul>
+              <p class="project-credits__footnote" data-i18n="project.skopein.footnote">Film Equipment Provided by Shoot Blue</p>
+            </div>
+          </div>
+        </aside>
+        <div class="project-layout__scroll">
+          <div class="project-layout__content">
+            <div class="project-poem project-poem--compact reveal">
               <p>Wicked is our mind,<br>Wretched is our soul.<br>Sully in our heart,<br>Spoils in our being.</p>
             </div>
-            <div class="project-credits">
-              <p class="project-credits__note">A fashion short film done in collaboration with film brother duo Hwang Broz.</p>
-              <ul class="project-credits__list project-credits__list--inline">
-                <li><span class="credit-label">Garments.</span> HSIAH</li>
-                <li><span class="credit-label">Director.</span> HWANG BROZ</li>
-                <li><span class="credit-label">DoP.</span> Yuming Huang</li>
-                <li><span class="credit-label">Actress.</span> Constance Hsiah and Chu Qi</li>
-                <li><span class="credit-label">Production Design.</span> Alice Han - DZZI Studio</li>
-                <li><span class="credit-label">Art Assist.</span> Yaqi Li</li>
-                <li><span class="credit-label">Composer.</span> Jean Aviat</li>
-                <li><span class="credit-label">HMUA.</span> Kyra Lui</li>
-                <li><span class="credit-label">Photography.</span> Chen Lin</li>
-                <li><span class="credit-label">Stylist.</span> Zeynep Kerpisci</li>
-                <li><span class="credit-label">Jewellery.</span> Feyza Berca Senturk</li>
-              </ul>
-              <p class="project-credits__footnote">Film Equipment Provided by Shoot Blue</p>
+            <div class="project-grid reveal">
+              <div class="project-grid__item project-grid__item--video">
+                <video class="project-grid__video" src="photos/4. SKOPEIN FOBOS (SHORT FILM)/PUT FIRST.webm" autoplay muted loop playsinline controls></video>
+              </div>
+              <div class="project-grid__item"><img src="photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-01.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-02.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-03.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-04.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-05.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-10.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-11.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-12.webp" alt="" loading="lazy"></div>
             </div>
-          </div>
-          <div class="project-grid reveal">
-            <div class="project-grid__item project-grid__item--wide project-grid__item--video" style="background-color:#111111">
-              <video class="project-grid__video" src="photos/4. SKOPEIN FOBOS (SHORT FILM)/PUT FIRST.webm" autoplay muted loop playsinline controls></video>
-            </div>
-            <div class="project-grid__item" style="background-color:#9e7e70; background-image:url('photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-01.webp')"></div>
-            <div class="project-grid__item project-grid__item--tall" style="background-color:#131416; background-image:url('photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-02.webp')"></div>
-            <div class="project-grid__item" style="background-color:#111415; background-image:url('photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-03.webp')"></div>
-            <div class="project-grid__item" style="background-color:#111314; background-image:url('photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-04.webp')"></div>
-            <div class="project-grid__item project-grid__item--wide" style="background-color:#bebbbd; background-image:url('photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-05.webp')"></div>
-            <div class="project-grid__item" style="background-color:#c4c4c4; background-image:url('photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-10.webp')"></div>
-            <div class="project-grid__item" style="background-color:#acacab; background-image:url('photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-11.webp')"></div>
-            <div class="project-grid__item project-grid__item--wide" style="background-color:#eceded; background-image:url('photos/4. SKOPEIN FOBOS (SHORT FILM)/SKOPEIN FOBOS CAMPAIGN IG-12.webp')"></div>
+            <nav class="project-pager reveal" aria-label="Project navigation" data-i18n-aria="aria.projectNav">
+              <div class="project-pager__inner">
+                <a class="project-pager__link" data-page="project-echoes" href="#project-echoes">&lt; ECHOES</a>
+                <a class="project-pager__link project-pager__link--next" data-page="project-tarantella" href="#project-tarantella">TARANTELLA &gt;</a>
+              </div>
+            </nav>
           </div>
         </div>
-      </section>
-      <nav class="project-pager reveal" aria-label="Project navigation">
-        <div class="container">
-          <div class="project-pager__inner">
-            <a class="project-pager__link" data-page="project-echoes" href="#project-echoes">&lt; ECHOES</a>
-            <a class="project-pager__link project-pager__link--next" data-page="project-tarantella" href="#project-tarantella">TARANTELLA &gt;</a>
-          </div>
-        </div>
-      </nav>
-      <footer class="footer">
-        <div class="container">
-          <div class="footer__inner">
-            <p>&copy; 2026 HSIAH「夏」</p>
-            <p>ALL RIGHTS RESERVED</p>
-          </div>
-        </div>
-      </footer>
+      </div>
     </main>
 
     <!-- ===================== PROJECT: TARANTELLA ===================== -->
     <main class="page" data-page="project-tarantella" id="pageProjectTarantella">
-      <section class="page-header">
-        <div class="container">
-          <h1 class="page-header__title reveal">TARANTELLA</h1>
-        </div>
-      </section>
-      <section class="section">
-        <div class="container">
-          <div class="project-copy reveal">
-            <div class="project-poem project-poem--dialogue">
+      <div class="project-layout">
+        <aside class="project-layout__side">
+          <h1 class="project-layout__title">TARANTELLA</h1>
+          <div class="project-layout__meta">
+            <div class="project-credits">
+              <ul class="project-credits__list project-credits__list--inline">
+                <li><span class="credit-label" data-i18n="credits.garments">Garments.</span> HSIAH</li>
+                <li><span class="credit-label" data-i18n="credits.photography">Photography.</span> Chen Lin</li>
+                <li><span class="credit-label" data-i18n="credits.dop">DoP.</span> Yuming Huang</li>
+                <li><span class="credit-label" data-i18n="credits.model">Model.</span> Constance Hsiah &nbsp; X &nbsp; Amie Stafford</li>
+                <li><span class="credit-label" data-i18n="credits.performanceArtist">Performance Artist.</span> Liu Siyi</li>
+                <li><span class="credit-label" data-i18n="credits.productionDesign">Production Design.</span> Alice Han - DZZI Studio</li>
+                <li><span class="credit-label" data-i18n="credits.hmua">HMUA.</span> Kyra Lui</li>
+                <li><span class="credit-label" data-i18n="credits.stylist">Stylist.</span> Zeynep Kerpisci</li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+        <div class="project-layout__scroll">
+          <div class="project-layout__content">
+            <div class="project-poem project-poem--dialogue reveal">
               <p>“Why must she dance?” asks Clotho, the youngest of the three fates</p>
               <p>“Because she must,” answers Lachesis, the middle sister.</p>
               <p>“Can she not stop? Must she continue this childish nonsense?” Clotho retorts.</p>
@@ -548,41 +682,20 @@
               <p>“With every fibre of her being, she is renouncing us, renouncing fate. And for that, she marks her moment,” states Atropos, the eldest of the three.</p>
               <p class="project-poem__stanza">“The fate of one who questions is a fate of disillusionment.<br>Do not reject what cannot be controlled,<br>Do not lose sight of what is not told.<br>We, as the sisters of fate, renounce this poor soul.”<br>All three sisters in unison.</p>
             </div>
-            <div class="project-credits">
-              <ul class="project-credits__list project-credits__list--inline">
-                <li><span class="credit-label">Garments.</span> HSIAH</li>
-                <li><span class="credit-label">Photography.</span> Chen Lin</li>
-                <li><span class="credit-label">DoP.</span> Yuming Huang</li>
-                <li><span class="credit-label">Model.</span> Constance Hsiah &nbsp; X &nbsp; Amie Stafford</li>
-                <li><span class="credit-label">Performance Artist.</span> Liu Siyi</li>
-                <li><span class="credit-label">Production Design.</span> Alice Han - DZZI Studio</li>
-                <li><span class="credit-label">HMUA.</span> Kyra Lui</li>
-                <li><span class="credit-label">Stylist.</span> Zeynep Kerpisci</li>
-              </ul>
-            </div>
+            <nav class="project-pager reveal" aria-label="Project navigation" data-i18n-aria="aria.projectNav">
+              <div class="project-pager__inner">
+                <a class="project-pager__link" data-page="project-skopein" href="#project-skopein">&lt; SKOPEIN FOBOS</a>
+                <a class="project-pager__link project-pager__link--next" data-page="project-mengqi" href="#project-mengqi">夢棄少年 &gt;</a>
+              </div>
+            </nav>
           </div>
         </div>
-      </section>
-      <nav class="project-pager reveal" aria-label="Project navigation">
-        <div class="container">
-          <div class="project-pager__inner">
-            <a class="project-pager__link" data-page="project-skopein" href="#project-skopein">&lt; SKOPEIN FOBOS</a>
-            <a class="project-pager__link project-pager__link--next" data-page="project-mengqi" href="#project-mengqi">夢棄少年 &gt;</a>
-          </div>
-        </div>
-      </nav>
-      <footer class="footer">
-        <div class="container">
-          <div class="footer__inner">
-            <p>&copy; 2026 HSIAH「夏」</p>
-            <p>ALL RIGHTS RESERVED</p>
-          </div>
-        </div>
-      </footer>
+      </div>
     </main>
 
   </div>
 
+  <script src="js/i18n.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
