@@ -12,6 +12,7 @@
   --nav-edge: 2.5rem; /* equal inset: About ↔ left edge, bag icon ↔ right edge */
   --nav-logo-gap: 3rem; /* space between link groups and centered logo */
   --menu-item-space: 0.5rem; /* even vertical rhythm between all menu lines */
+  --menu-font-size: clamp(1.25rem, 6.5vw, 2.1rem);
   --ease: cubic-bezier(0.7, 0, 0.3, 1);
   --font-sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   /* Title ↔ poem ↔ credits rule: same value on section padding-top and credits margin-top; poem pad-y matches top/bottom of text */
@@ -263,6 +264,11 @@ input, textarea {
   transform: rotate(180deg);
 }
 
+.nav__left .nav__dropdown-menu {
+  min-width: 0;
+  width: max-content;
+}
+
 .nav__dropdown-menu {
   position: absolute;
   top: calc(100% + 0.85rem);
@@ -494,7 +500,7 @@ input, textarea {
   width: 100%;
   margin: 0;
   font-family: inherit;
-  font-size: clamp(1.25rem, 6.5vw, 2.1rem);
+  font-size: var(--menu-font-size);
   font-weight: 300;
   letter-spacing: 0.03em;
   line-height: 1.2;
@@ -1715,7 +1721,8 @@ input, textarea {
 .project-layout__side .project-credits__sublist,
 .project-layout__side .project-credits__sublist li,
 .project-layout__side .project-credits__footnote,
-.project-layout__side .credit-label {
+.project-layout__side .credit-label,
+.project-layout__side .credit-value {
   color: var(--white);
 }
 
@@ -1832,7 +1839,7 @@ input, textarea {
   text-transform: uppercase;
   color: var(--white);
   margin: 1.25rem 0 0.5rem;
-  font-weight: 400;
+  font-weight: 1000;
 }
 
 .project-credits__list {
@@ -1860,8 +1867,16 @@ input, textarea {
 .credit-label {
   color: var(--white);
   font-size: 0.72rem;
+  font-weight: 1000;
   letter-spacing: 0.03em;
   text-transform: uppercase;
+}
+
+.credit-value {
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--white);
 }
 
 .project-credits__sublist {
@@ -2127,6 +2142,8 @@ input, textarea {
   :root {
     --nav-edge: 1.2rem;
     --nav-h: clamp(64px, 14vw, 80px);
+    --menu-font-size: clamp(1.5rem, 7.8vw, 2.52rem);
+    --menu-item-space: 0.6rem;
   }
 
   .nav {
