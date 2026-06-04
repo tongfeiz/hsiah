@@ -194,8 +194,15 @@
 
   /* ---- DOM Cache ---- */
 
+  const GATE_STORAGE_KEY = 'hsiah_gate_ok';
+  const GATE_HASH = 'f891fff91bc7ac4e18deb84372b2dcab913d56fd882e7364a7b7aaadab0abe6e';
+
   const dom = {
     loader:            document.getElementById('loader'),
+    gate:              document.getElementById('gate'),
+    gateForm:          document.getElementById('gateForm'),
+    gateInput:         document.getElementById('gateInput'),
+    gateError:         document.getElementById('gateError'),
     heroVideo:         document.getElementById('heroVideo'),
     nav:               document.getElementById('nav'),
     menuBtn:           document.getElementById('menuBtn'),
@@ -394,6 +401,75 @@
 
   function dismissLoader() {
     dom.loader.classList.add('loaded');
+  }
+
+  /* ============================================
+     SITE GATE
+     ============================================ */
+
+  function isGateUnlocked() {
+    try {
+      return sessionStorage.getItem(GATE_STORAGE_KEY) === '1';
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function unlockGate() {
+    try {
+      sessionStorage.setItem(GATE_STORAGE_KEY, '1');
+    } catch (_) { /* ignore */ }
+  }
+
+  async function digestGateInput(value) {
+    const data = new TextEncoder().encode(value);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hashBuffer))
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
+  }
+
+  function showGate() {
+    if (!dom.gate) return;
+    dom.gate.classList.add('active');
+    dom.gate.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('gate-open');
+    dom.gateInput?.focus();
+  }
+
+  function hideGate() {
+    if (!dom.gate) return;
+    dom.gate.classList.remove('active');
+    dom.gate.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('gate-open');
+  }
+
+  function initGate() {
+    if (!dom.gateForm || isGateUnlocked()) return;
+
+    dom.gateForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = dom.gateInput.value;
+      const hash = await digestGateInput(input);
+
+      if (hash === GATE_HASH) {
+        unlockGate();
+        dom.gateError.hidden = true;
+        hideGate();
+        return;
+      }
+
+      dom.gateError.hidden = false;
+      dom.gateInput.value = '';
+      dom.gateInput.focus();
+    });
+  }
+
+  function finishLoaderSequence() {
+    dismissLoader();
+    if (!isGateUnlocked()) {
+      showGate();
+    }
   }
 
   /* ============================================
@@ -1278,11 +1354,12 @@
     initMenuAccordions();
     initMenuUtils();
     bindEvents();
+    initGate();
     currentCurrency = getStoredCurrency();
     applyLocale(currentLocale);
     updateCartBadge();
 
-    setTimeout(dismissLoader, 900);
+    setTimeout(finishLoaderSequence, 900);
   }
 
   if (document.readyState === 'loading') {

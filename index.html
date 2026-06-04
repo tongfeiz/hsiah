@@ -23,6 +23,19 @@
     </div>
   </div>
 
+  <!-- Site Gate -->
+  <div class="gate" id="gate" aria-hidden="true">
+    <div class="gate__inner">
+      <img class="gate__logo" src="photos/hsiahlogogood.png" alt="HSIAH">
+      <p class="gate__label">Enter site password</p>
+      <form class="gate__form" id="gateForm">
+        <input type="password" class="gate__input" id="gateInput" autocomplete="current-password" required>
+        <button type="submit" class="btn btn--red gate__submit">Enter</button>
+      </form>
+      <p class="gate__error" id="gateError" hidden>Incorrect password</p>
+    </div>
+  </div>
+
   <!-- Fixed Navigation -->
   <header class="nav" id="nav">
     <button class="nav__menu-btn" id="menuBtn" aria-label="Menu" data-i18n-aria="aria.menu" aria-expanded="false">
