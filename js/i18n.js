@@ -68,6 +68,7 @@ window.HSIAH_I18N = (function () {
     /* Pages */
     'page.featured': s('FEATURED', '精選', '精选'),
     'page.about': s('ABOUT', '關於', '关于'),
+    'page.contact': s('CONTACT', '聯絡', '联络'),
     'shop.stanzaI': s('STANZA I SUMMER COLLECTION', '第一詩章 · 夏日系列', '第一诗章 · 夏日系列'),
 
     /* Product detail */
@@ -93,17 +94,28 @@ window.HSIAH_I18N = (function () {
     'cart.subtotal': s('Subtotal', '小計', '小计'),
     'cart.checkout': s('CHECKOUT', '結帳', '结账'),
     'cart.checkoutNote': s(
-      'Complete your order by email. We will confirm availability and send payment details.',
-      '請透過電郵完成訂單。我們將確認庫存並發送付款詳情。',
-      '请透过电邮完成订单。我们将确认库存并发送付款详情。'
+      'Enter your email and pay securely with Stripe. You will be redirected to complete payment.',
+      '輸入電郵並透過 Stripe 安全付款。你將被導向至付款頁面完成結帳。',
+      '输入电邮并通过 Stripe 安全付款。你将被导向至付款页面完成结账。'
     ),
     'cart.email': s('EMAIL', '電郵', '电邮'),
     'cart.placeOrder': s('PLACE ORDER', '提交訂單', '提交订单'),
     'cart.orderPlaced': s(
-      'Thank you — your order request has been sent. We will be in touch shortly.',
-      '感謝 — 你的訂單請求已送出，我們將盡快聯絡你。',
-      '感谢 — 你的订单请求已送出，我们将尽快联络你。'
+      'Thank you — your payment was successful. We will confirm your order and shipping details shortly.',
+      '感謝 — 付款已成功。我們將盡快確認你的訂單及運送詳情。',
+      '感谢 — 付款已成功。我们将尽快确认你的订单及运送详情。'
     ),
+    'cart.checkoutCancelled': s(
+      'Checkout was cancelled. Your bag is still saved — you can try again when ready.',
+      '結帳已取消。你的購物袋仍然保留 — 準備好時可再次付款。',
+      '结账已取消。你的购物袋仍然保留 — 准备好时可再次付款。'
+    ),
+    'cart.checkoutError': s(
+      'Unable to start checkout. Please try again or contact us if the problem continues.',
+      '無法開始結帳。請再試一次，如問題持續請聯絡我們。',
+      '无法开始结账。请再试一次，如问题持续请联系我们。'
+    ),
+    'cart.processing': s('PROCESSING…', '處理中…', '处理中…'),
     'cart.edit': s('Edit', '編輯', '编辑'),
     'about.getInTouch': s('GET IN TOUCH', '聯絡我們', '联系我们'),
     'about.quote': s('“Solace is found in the hallucinations of dreamers.”', '「慰藉，藏於追夢者的幻境之中。」', '「慰藉，藏于追梦者的幻境之中。」'),
@@ -155,9 +167,9 @@ window.HSIAH_I18N = (function () {
       '展演中，HSIAH 发表最新系列「梦弃少年」与「谎言以夏为终」，融合当代理念与文化轮廓。'
     ),
     'project.skopein.note': s(
-      'A fashion short film done in collaboration with film brother duo Hwang Broz.',
-      '與電影兄弟組合 Hwang Broz 合作之時尚短片。',
-      '与电影兄弟组合 Hwang Broz 合作之时尚短片。'
+      'A fashion short film done in collaboration with film brother duo HWANG BROZ.',
+      '與電影兄弟組合 HWANG BROZ 合作之時尚短片。',
+      '与电影兄弟组合 HWANG BROZ 合作之时尚短片。'
     ),
     'project.skopein.footnote': s(
       'Film Equipment Provided by Shoot Blue',
@@ -175,6 +187,8 @@ window.HSIAH_I18N = (function () {
     'featured.caption.onyx': s('17.23 Magazine Onyx Photoshoot', '17.23 雜誌 Onyx 拍攝', '17.23 杂志 Onyx 拍摄'),
     'featured.caption.anniversary': s('0159 1 Year Anniversary Collaboration', '0159 一週年合作', '0159 一周年合作'),
     'featured.caption.anniversary1': s('0159 1 Year Anniversary Collaboration', '0159 一週年合作', '0159 一周年合作'),
+    'featured.caption.secretLineup': s('0159 Secret Lineup Collaboration', '0159 Secret Lineup 合作', '0159 Secret Lineup 合作'),
+    'featured.caption.secretLineup1': s('0159 Secret Lineup Collaboration', '0159 Secret Lineup 合作', '0159 Secret Lineup 合作'),
     'featured.caption.prosienta': s('Prosienta Photoshoot', 'Prosienta 拍攝', 'Prosienta 拍摄'),
     'featured.caption.prosienta1': s('Prosienta Photoshoot', 'Prosienta 拍攝', 'Prosienta 拍摄'),
     'featured.caption.onyx1': s('17.23 Magazine Onyx Photoshoot', '17.23 雜誌 Onyx 拍攝', '17.23 杂志 Onyx 拍摄'),
@@ -199,6 +213,8 @@ window.HSIAH_I18N = (function () {
     '17.23_Magazine_Onyx_Photoshoot(2).webp': 'featured.caption.onyx2',
     '0159_1_Year_Anniversary_Collaboration.webp': 'featured.caption.anniversary',
     '0159_1_Year_Anniversary_Collaboration(1).webp': 'featured.caption.anniversary1',
+    '0159_Secret_Lineup_Collaboration.webm': 'featured.caption.secretLineup',
+    '0159_Secret_Lineup_Collaboration(1).webm': 'featured.caption.secretLineup1',
     'Prosienta_Photoshoot.webp': 'featured.caption.prosienta',
     'Prosienta_Photoshoot(1).webp': 'featured.caption.prosienta1',
   };

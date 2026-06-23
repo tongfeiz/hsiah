@@ -11,6 +11,7 @@
     'cart',
     'featured',
     'about',
+    'contact',
     'project-mengqi',
     'project-huangyan',
     'project-echoes',
@@ -19,6 +20,11 @@
   ];
 
   const FEATURED_DIR = 'photos/FEATURED/';
+
+  const FEATURED_VIDEOS = [
+    '0159_Secret_Lineup_Collaboration.webm',
+    '0159_Secret_Lineup_Collaboration(1).webm',
+  ];
 
   const FEATURED_PHOTOS = [
     'Stalagmite_Installation_Performance_Chen_Lin.webp',
@@ -165,6 +171,8 @@
 
   const CART_STORAGE_KEY = 'hsiah-cart';
 
+  let checkoutBanner = null;
+
   const SHOP_SECTIONS = [
     {
       stanza: 'stanza-i',
@@ -214,9 +222,10 @@
     cartContent:       document.getElementById('cartContent'),
     cartBagCount:      document.getElementById('cartBagCount'),
     featuredGrid:      document.getElementById('featuredGrid'),
+    featuredVideos:    document.getElementById('featuredVideos'),
     waitlistForm:      document.getElementById('waitlistForm'),
     contactForm:       document.getElementById('contactForm'),
-    aboutContactForm:  document.getElementById('aboutContactForm'),
+    contactPageForm:   document.getElementById('contactPageForm'),
   };
 
   let currentPage   = 'home';
@@ -240,10 +249,11 @@
   }
 
   function resolveRoute(hash) {
-    if (!hash) return 'home';
-    if (ROUTE_IDS.includes(hash)) return hash;
-    const slug = hash.startsWith('product-') ? hash.slice('product-'.length) : null;
-    if (slug && getProductBySlug(slug)) return hash;
+    const route = (hash || '').split('?')[0];
+    if (!route) return 'home';
+    if (ROUTE_IDS.includes(route)) return route;
+    const slug = route.startsWith('product-') ? route.slice('product-'.length) : null;
+    if (slug && getProductBySlug(slug)) return route;
     return 'home';
   }
 
@@ -374,8 +384,12 @@
   }
 
   function updateFeaturedCaptions() {
-    if (!i18n || !dom.featuredGrid) return;
-    dom.featuredGrid.querySelectorAll('.featured-masonry__caption').forEach((el) => {
+    if (!i18n) return;
+    const captionEls = [
+      ...(dom.featuredGrid ? dom.featuredGrid.querySelectorAll('.featured-masonry__caption') : []),
+      ...(dom.featuredVideos ? dom.featuredVideos.querySelectorAll('.featured-videos__caption') : []),
+    ];
+    captionEls.forEach((el) => {
       const key = el.dataset.i18nKey;
       if (key) {
         const val = i18n.t(key, currentLocale);
@@ -477,7 +491,12 @@
      ============================================ */
 
   function initHeroVideo() {
-    const videos = ['photos/tv1.mp4', 'photos/tv2.mp4', 'photos/tv3.mp4', 'photos/tv4.mp4'];
+    const videos = [
+      'photos/landing page videos/tv1.mp4',
+      'photos/landing page videos/tv2.mp4',
+      'photos/landing page videos/tv3.mp4',
+      'photos/landing page videos/tv4.mp4',
+    ];
     const pick = videos[Math.floor(Math.random() * videos.length)];
     if (dom.heroVideo) {
       dom.heroVideo.src = pick;
@@ -739,22 +758,50 @@
     }, 0);
   }
 
-  function buildOrderMailtoBody(cart, email) {
-    const lines = cart.map((item) => {
-      const product = getProductBySlug(item.slug);
-      if (!product) return '';
-      const lineTotal = product.price * item.quantity;
-      return `${product.name}\n  Size: ${item.size}\n  Qty: ${item.quantity}\n  ${formatProductPrice(lineTotal)}`;
-    }).filter(Boolean);
-    return [
-      'HSIAH Order Request',
-      '',
-      `Email: ${email}`,
-      '',
-      ...lines,
-      '',
-      `Subtotal: ${formatProductPrice(getCartSubtotalHkd())}`,
-    ].join('\n');
+  function getStripeCheckoutApiUrl() {
+    return window.HSIAH_STRIPE?.checkoutApiUrl || '/api/create-checkout-session';
+  }
+
+  function handleCheckoutReturn() {
+    const params = new URLSearchParams(window.location.search);
+    const status = params.get('checkout');
+    if (!status) return;
+
+    if (status === 'success') {
+      saveCart([]);
+      updateCartBadge();
+      checkoutBanner = 'success';
+    } else if (status === 'cancelled') {
+      checkoutBanner = 'cancelled';
+    }
+
+    params.delete('checkout');
+    const query = params.toString();
+    const nextUrl = `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`;
+    window.history.replaceState(null, '', nextUrl);
+  }
+
+  async function startStripeCheckout(cart, email) {
+    const response = await fetch(getStripeCheckoutApiUrl(), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        currency: currentCurrency === 'uk' ? 'gbp' : 'hkd',
+        cart: cart.map((item) => ({
+          slug: item.slug,
+          size: item.size,
+          quantity: item.quantity,
+        })),
+      }),
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !data.url) {
+      throw new Error(data.error || 'Checkout failed');
+    }
+
+    window.location.href = data.url;
   }
 
   let activeProductSlug = null;
@@ -997,7 +1044,7 @@
 
     const form = dom.cartContent.querySelector('#cartCheckoutForm');
     if (form) {
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const cart = getCart();
         if (!cart.length) return;
@@ -1009,14 +1056,27 @@
           return;
         }
 
-        const subject = encodeURIComponent('HSIAH Order Request');
-        const body = encodeURIComponent(buildOrderMailtoBody(cart, email));
-        window.location.href = `mailto:HSIAHOFFICIAL@GMAIL.COM?subject=${subject}&body=${body}`;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const errorEl = dom.cartContent.querySelector('.cart-checkout-error');
+        const defaultLabel = submitBtn?.textContent || '';
 
-        const success = dom.cartContent.querySelector('.cart-success');
-        if (success) {
-          success.hidden = false;
-          form.hidden = true;
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = t('cart.processing') || 'PROCESSING…';
+        }
+        if (errorEl) errorEl.hidden = true;
+
+        try {
+          await startStripeCheckout(cart, email);
+        } catch (err) {
+          if (errorEl) {
+            errorEl.textContent = err.message || (t('cart.checkoutError') || 'Unable to start checkout.');
+            errorEl.hidden = false;
+          }
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = defaultLabel;
+          }
         }
       });
     }
@@ -1028,13 +1088,16 @@
     const cart = getCart();
 
     if (!cart.length) {
+      const successOnly = checkoutBanner === 'success';
       dom.cartContent.innerHTML = `
         <div class="cart reveal">
           <h1 class="cart__title" data-i18n="cart.title">BAG</h1>
-          <p class="cart__empty" data-i18n="cart.empty">Your bag is empty.</p>
+          ${successOnly ? '<p class="cart-success" data-i18n="cart.orderPlaced">Thank you — your payment was successful. We will confirm your order and shipping details shortly.</p>' : ''}
+          ${!successOnly ? '<p class="cart__empty" data-i18n="cart.empty">Your bag is empty.</p>' : ''}
           <a class="btn" href="#products" data-page="products" data-i18n="cart.continue">CONTINUE SHOPPING</a>
         </div>
       `;
+      if (successOnly) checkoutBanner = null;
       applyCartI18n(dom.cartContent);
       observeReveals();
       return;
@@ -1072,9 +1135,17 @@
       `;
     }).join('');
 
+    const bannerHtml =
+      checkoutBanner === 'success'
+        ? `<p class="cart-success" data-i18n="cart.orderPlaced">Thank you — your payment was successful. We will confirm your order and shipping details shortly.</p>`
+        : checkoutBanner === 'cancelled'
+          ? `<p class="cart-checkout-error cart-checkout-error--info" data-i18n="cart.checkoutCancelled">Checkout was cancelled. Your bag is still saved — you can try again when ready.</p>`
+          : '';
+
     dom.cartContent.innerHTML = `
       <div class="cart reveal">
         <h1 class="cart__title" data-i18n="cart.title">BAG</h1>
+        ${bannerHtml}
         <div class="cart__lines">${lines}</div>
         <div class="cart__summary">
           <div class="cart__subtotal">
@@ -1085,15 +1156,17 @@
         </div>
         <div class="cart__checkout">
           <h2 class="cart__checkout-title" data-i18n="cart.checkout">CHECKOUT</h2>
-          <p class="cart__checkout-note" data-i18n="cart.checkoutNote">Complete your order by email. We will confirm availability and send payment details.</p>
+          <p class="cart__checkout-note" data-i18n="cart.checkoutNote">Enter your email and pay securely with Stripe. You will be redirected to complete payment.</p>
           <form class="cart-checkout-form" id="cartCheckoutForm">
             <input type="email" placeholder="EMAIL" data-i18n-placeholder="cart.email" required>
             <button type="submit" class="btn btn--red" data-i18n="cart.placeOrder">PLACE ORDER</button>
           </form>
-          <p class="cart-success" hidden data-i18n="cart.orderPlaced">Thank you — your order request has been sent. We will be in touch shortly.</p>
+          <p class="cart-checkout-error" hidden data-i18n="cart.checkoutError">Unable to start checkout. Please try again or contact us if the problem continues.</p>
         </div>
       </div>
     `;
+
+    if (checkoutBanner) checkoutBanner = null;
 
     applyCartI18n(dom.cartContent);
     bindCartEvents();
@@ -1108,6 +1181,23 @@
   let featuredColumnCount = null;
 
   function renderFeatured() {
+    if (dom.featuredVideos) {
+      dom.featuredVideos.innerHTML = FEATURED_VIDEOS.map((file) => {
+        const src = FEATURED_DIR + file;
+        const captionKey = i18n ? i18n.getFeaturedCaptionKey(file) : null;
+        const caption = captionKey ? (t(captionKey) || formatFeaturedCaption(file)) : formatFeaturedCaption(file);
+        const captionAttr = captionKey ? ` data-i18n-key="${captionKey}"` : '';
+        return `
+          <article class="featured-videos__item">
+            <div class="featured-videos__media">
+              <video class="featured-videos__video" src="${src}" autoplay muted loop playsinline controls></video>
+            </div>
+            <p class="featured-videos__caption"${captionAttr}>${caption}</p>
+          </article>
+        `;
+      }).join('');
+    }
+
     if (!dom.featuredGrid) return;
 
     const cols = getFeaturedColumnCount();
@@ -1288,7 +1378,7 @@
 
     if (dom.waitlistForm)     dom.waitlistForm.addEventListener('submit', handleWaitlist);
     if (dom.contactForm)      dom.contactForm.addEventListener('submit', handleContact);
-    if (dom.aboutContactForm) dom.aboutContactForm.addEventListener('submit', handleContact);
+    if (dom.contactPageForm)  dom.contactPageForm.addEventListener('submit', handleContact);
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
@@ -1326,6 +1416,8 @@
      ============================================ */
 
   function init() {
+    handleCheckoutReturn();
+
     const hash = window.location.hash.replace('#', '');
     const startPage = resolveRoute(hash);
 

@@ -3,7 +3,7 @@
    ============================================ */
 
 :root {
-  --red: #D22026;
+  --red: #41070b;
   --black: #0C0C0C;
   --white: #fff;
   --gray: #999;
@@ -14,7 +14,7 @@
   --menu-item-space: 0.5rem; /* even vertical rhythm between all menu lines */
   --menu-font-size: clamp(1.25rem, 6.5vw, 2.1rem);
   --ease: cubic-bezier(0.7, 0, 0.3, 1);
-  --font-sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-sans: 'Cormorant Garamond', 'Songti SC', 'STSongti-SC-Regular', 'Songti TC', 'SimSun', serif;
   /* Title ↔ poem ↔ credits rule: same value on section padding-top and credits margin-top; poem pad-y matches top/bottom of text */
   --project-poem-pad-y: 1.15rem;
   --project-poem-outside-gap: 3.25rem;
@@ -133,7 +133,7 @@ input, textarea {
   position: absolute;
   width: var(--loader-arm-h);
   height: var(--loader-arm-v);
-  border: 2.2px solid #9f171c;
+  border: 2.2px solid var(--red);
 }
 
 .loader__corner--tl {
@@ -968,10 +968,12 @@ input, textarea {
 }
 
 .collections-item__num {
-  font-size: 0.7rem;
+  font-size: 2.1rem;
   letter-spacing: 0.03em;
   color: var(--gray);
-  width: 60px;
+  width: auto;
+  min-width: 2.75rem;
+  margin-right: 0.35rem;
   flex-shrink: 0;
   transition: color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -1007,6 +1009,18 @@ input, textarea {
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   margin-top: 3rem;
+}
+
+.page[data-page="contact"] > .page-header {
+  padding-bottom: 0;
+}
+
+.page[data-page="contact"] > .section {
+  padding-top: 2rem;
+}
+
+.page[data-page="contact"] .contact-grid {
+  margin-top: 0;
 }
 
 .contact-info__block {
@@ -1081,8 +1095,8 @@ input, textarea {
 }
 
 .btn--red:hover {
-  background: #b01a1f;
-  border-color: #b01a1f;
+  background: color-mix(in srgb, var(--red) 82%, white);
+  border-color: color-mix(in srgb, var(--red) 82%, white);
 }
 
 .btn--full {
@@ -1313,6 +1327,23 @@ input, textarea {
   line-height: 1.6;
   color: var(--gray);
   margin-top: 1rem;
+}
+
+.cart-checkout-error {
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  line-height: 1.6;
+  color: #e8a0a0;
+  margin-top: 1rem;
+}
+
+.cart-checkout-error--info {
+  color: var(--gray);
+}
+
+.cart-checkout-form .btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
 }
 
 @media (max-width: 640px) {
@@ -1647,6 +1678,34 @@ input, textarea {
 /* ============================================
    FEATURED MASONRY
    ============================================ */
+
+.featured-videos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.featured-videos__media {
+  overflow: hidden;
+  background-color: var(--light);
+  line-height: 0;
+}
+
+.featured-videos__video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.featured-videos__caption {
+  margin: 0.75rem 0 0;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--gray);
+  line-height: 1.4;
+}
 
 .featured-masonry {
   columns: 4;
@@ -2006,6 +2065,14 @@ input, textarea {
   transform: scale(1.05);
 }
 
+.page[data-page="project-skopein"] .project-grid__item:not(.project-grid__item--video) img {
+  transform: scale(1.08);
+}
+
+.page[data-page="project-skopein"] .project-grid__item:not(.project-grid__item--video):hover img {
+  transform: scale(1.12);
+}
+
 .project-grid__item--video {
   column-span: all;
   line-height: normal;
@@ -2312,6 +2379,10 @@ input, textarea {
     column-gap: 1rem;
   }
 
+  .featured-videos {
+    gap: 1rem;
+  }
+
   .featured-masonry__item {
     margin-bottom: 1.5rem;
   }
@@ -2381,7 +2452,8 @@ input, textarea {
   }
 
   .collections-item__num {
-    width: 40px;
+    min-width: 2.25rem;
+    margin-right: 0.25rem;
   }
 
   .hero__title {
@@ -2401,6 +2473,12 @@ input, textarea {
     columns: 1;
     max-width: 320px;
     margin: 0 auto;
+  }
+
+  .featured-videos {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin: 0 auto 2rem;
   }
 
   .page-header__title {

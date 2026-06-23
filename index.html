@@ -6,7 +6,7 @@
   <title>HSIAH「夏」</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/png" href="photos/hsiahlogogood.png">
 </head>
@@ -62,7 +62,7 @@
             <li><a class="nav__dropdown-link" data-page="project-tarantella" href="#project-tarantella" role="menuitem">Archives V</a></li>
           </ul>
         </div>
-        <a class="nav__link" data-page="about" href="#about" data-i18n="nav.contact">Contact</a>
+        <a class="nav__link" data-page="contact" href="#contact" data-i18n="nav.contact">Contact</a>
       </nav>
     </div>
 
@@ -129,7 +129,7 @@
             </div>
           </div>
         </li>
-        <li><a class="menu__link" data-page="about" href="#about" data-i18n="nav.contact">Contact</a></li>
+        <li><a class="menu__link" data-page="contact" href="#contact" data-i18n="nav.contact">Contact</a></li>
         <li class="menu__group">
           <button type="button" class="menu__toggle" aria-expanded="false" aria-controls="menuPanelCurrency">
             <span data-i18n="nav.currencyLabel">Currency</span>
@@ -385,6 +385,7 @@
 
       <section class="section">
         <div class="container">
+          <div class="featured-videos reveal" id="featuredVideos"></div>
           <div class="featured-masonry reveal" id="featuredGrid"></div>
         </div>
       </section>
@@ -424,11 +425,28 @@
         </div>
       </section>
 
+      <footer class="footer">
+        <div class="container">
+          <div class="footer__inner">
+            <p>&copy; 2026 HSIAH「夏」</p>
+            <p data-i18n="footer.rights">ALL RIGHTS RESERVED</p>
+          </div>
+        </div>
+      </footer>
+
+    </main>
+
+    <!-- ===================== CONTACT ===================== -->
+    <main class="page" data-page="contact" id="pageContact">
+
+      <section class="page-header">
+        <div class="container">
+          <h1 class="page-header__title reveal" data-i18n="page.contact">CONTACT</h1>
+        </div>
+      </section>
+
       <section class="section">
         <div class="container">
-          <div class="reveal">
-            <h2 class="section__title" data-i18n="about.getInTouch">GET IN TOUCH</h2>
-          </div>
           <div class="contact-grid reveal">
             <div class="contact-info">
               <div class="contact-info__block">
@@ -440,7 +458,7 @@
                 <p>HSIAH.OFFICIAL</p>
               </div>
             </div>
-            <form class="contact-form" id="aboutContactForm">
+            <form class="contact-form" id="contactPageForm">
               <input type="text" placeholder="NAME" data-i18n-placeholder="form.name" required>
               <input type="email" placeholder="EMAIL" data-i18n-placeholder="form.email" required>
               <textarea placeholder="MESSAGE" data-i18n-placeholder="form.message" rows="4" required></textarea>
@@ -616,10 +634,10 @@
           <h1 class="project-layout__title">SKOPEIN FOBOS</h1>
           <div class="project-layout__meta">
             <div class="project-credits">
-              <p class="project-credits__note" data-i18n="project.skopein.note">A fashion short film done in collaboration with film brother duo Hwang Broz.</p>
+              <p class="project-credits__note" data-i18n="project.skopein.note">A fashion short film done in collaboration with film brother duo HWANG BROZ.</p>
               <ul class="project-credits__list project-credits__list--inline">
                 <li><span class="credit-label" data-i18n="credits.garments">Garments.</span><span class="credit-value">HSIAH</span></li>
-                <li><span class="credit-label" data-i18n="credits.director">Director.</span><span class="credit-value">HWANG BROZ</span></li>
+                <li><span class="credit-label" data-i18n="credits.director">Director.</span><span class="credit-value">Wang Rui</span></li>
                 <li><span class="credit-label" data-i18n="credits.dop">DoP.</span><span class="credit-value">Yuming Huang</span></li>
                 <li><span class="credit-label" data-i18n="credits.actress">Actress.</span><span class="credit-value">Constance Hsiah and Chu Qi</span></li>
                 <li><span class="credit-label" data-i18n="credits.productionDesign">Production Design.</span><span class="credit-value">Alice Han - DZZI Studio</span></li>
@@ -695,6 +713,20 @@
               <p>“With every fibre of her being, she is renouncing us, renouncing fate. And for that, she marks her moment,” states Atropos, the eldest of the three.</p>
               <p class="project-poem__stanza">“The fate of one who questions is a fate of disillusionment.<br>Do not reject what cannot be controlled,<br>Do not lose sight of what is not told.<br>We, as the sisters of fate, renounce this poor soul.”<br>All three sisters in unison.</p>
             </div>
+            <div class="project-grid reveal">
+              <div class="project-grid__item project-grid__item--video">
+                <video class="project-grid__video" src="photos/5. TARANTELLA_/theo-final.webm" autoplay muted loop playsinline controls></video>
+              </div>
+              <div class="project-grid__item"><img src="photos/5. TARANTELLA_/yes-queen.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/5. TARANTELLA_/yes-queen-01.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/5. TARANTELLA_/yes-queen-02.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/5. TARANTELLA_/yes-queen-03.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/5. TARANTELLA_/yes-queen-04.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/5. TARANTELLA_/yes-queen-05.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/5. TARANTELLA_/yes-queen-06.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/5. TARANTELLA_/yes-queen-07.webp" alt="" loading="lazy"></div>
+              <div class="project-grid__item"><img src="photos/5. TARANTELLA_/yes-queen-08.webp" alt="" loading="lazy"></div>
+            </div>
             <nav class="project-pager reveal" aria-label="Project navigation" data-i18n-aria="aria.projectNav">
               <div class="project-pager__inner">
                 <a class="project-pager__link" data-page="project-skopein" href="#project-skopein">&lt; SKOPEIN FOBOS</a>
@@ -709,6 +741,7 @@
   </div>
 
   <script src="js/i18n.js"></script>
+  <script src="js/stripe-config.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

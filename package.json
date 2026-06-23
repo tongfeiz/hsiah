@@ -1,0 +1,15 @@
+{
+  "name": "hsiah",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "netlify dev",
+    "start": "netlify dev"
+  },
+  "dependencies": {
+    "stripe": "^18.0.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^23.0.0"
+  }
+}

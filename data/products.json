@@ -1,0 +1,29 @@
+{
+  "hkdPerGbp": 9.85,
+  "products": [
+    {
+      "slug": "embroidered-logo-tee",
+      "name": "Embroidered Logo Tee - Black",
+      "priceHkd": 398,
+      "stock": { "S": 30, "M": 50, "L": 20 }
+    },
+    {
+      "slug": "bodycon-logo-tank",
+      "name": "Bodycon Logo Tank Top - Black/ Anthracite",
+      "priceHkd": 298,
+      "stock": { "S": 15, "M": 10, "L": 5 }
+    },
+    {
+      "slug": "chaotic-totem-bandana",
+      "name": "Chaotic Totem Silk Bandana - Black/ Red",
+      "priceHkd": 298,
+      "stock": { "FREE SIZE": 50 }
+    },
+    {
+      "slug": "teardrop-jeans",
+      "name": "A FOOL WHO PAINTS TEARDROPS Jeans - Black",
+      "priceHkd": 1598,
+      "stock": { "XS": 5, "S": 10, "M": 20, "L": 10, "XL": 5 }
+    }
+  ]
+}
