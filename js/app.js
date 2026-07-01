@@ -5,10 +5,12 @@
 (function () {
   'use strict';
 
+  const SHOPIFY_STORE_URL = 'https://y406bc-1b.myshopify.com/';
+
+  const ARCHIVED_SHOP_ROUTES = ['products', 'cart'];
+
   const ROUTE_IDS = [
     'home',
-    'products',
-    'cart',
     'featured',
     'about',
     'contact',
@@ -251,9 +253,8 @@
   function resolveRoute(hash) {
     const route = (hash || '').split('?')[0];
     if (!route) return 'home';
+    if (ARCHIVED_SHOP_ROUTES.includes(route) || isProductRoute(route)) return 'home';
     if (ROUTE_IDS.includes(route)) return route;
-    const slug = route.startsWith('product-') ? route.slice('product-'.length) : null;
-    if (slug && getProductBySlug(slug)) return route;
     return 'home';
   }
 
@@ -423,7 +424,7 @@
 
   function isGateUnlocked() {
     try {
-      return sessionStorage.getItem(GATE_STORAGE_KEY) === '1';
+      return localStorage.getItem(GATE_STORAGE_KEY) === '1';
     } catch (_) {
       return false;
     }
@@ -431,7 +432,7 @@
 
   function unlockGate() {
     try {
-      sessionStorage.setItem(GATE_STORAGE_KEY, '1');
+      localStorage.setItem(GATE_STORAGE_KEY, '1');
     } catch (_) { /* ignore */ }
   }
 

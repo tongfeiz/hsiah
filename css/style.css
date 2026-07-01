@@ -406,6 +406,10 @@ input, textarea {
   color: var(--white);
 }
 
+.nav__util--hidden {
+  display: none !important;
+}
+
 .nav__icon-btn {
   display: inline-flex;
   align-items: center;
