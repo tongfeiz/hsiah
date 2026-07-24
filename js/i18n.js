@@ -17,6 +17,7 @@ window.HSIAH_I18N = (function () {
   const STRINGS = {
     /* Nav */
     'nav.about': s('About', '關於', '关于'),
+    'nav.lookbook': s('Lookbook', '造型冊', '造型册'),
     'nav.shop': s('Shop', '商店', '商店'),
     'nav.featured': s('Featured', '精選', '精选'),
     'nav.archives': s('Archives', '典藏', '典藏'),
@@ -38,12 +39,22 @@ window.HSIAH_I18N = (function () {
     'aria.bag': s('Shopping bag', '購物袋', '购物袋'),
     'aria.lightbox': s('Photo detail view', '相片詳情', '照片详情'),
     'aria.projectNav': s('Project navigation', '專案導覽', '项目导航'),
+    'promo.close': s('Close', '關閉', '关闭'),
+
+    /* Promo popup */
+    'promo.qualifier': s('YOUR FIRST PURCHASE', '首次購物', '首次购物'),
+    'promo.sub': s('Enter at checkout for 15% off.', '結帳時輸入折扣碼享 15% 折扣。', '结账时输入折扣码享 15% 折扣。'),
+    'promo.codeLabel': s('CODE:', '折扣碼:', '折扣码:'),
+    'promo.code': s('DYINGPOETS', 'DYINGPOETS', 'DYINGPOETS'),
+    'promo.reminder': s('ACCESS 15% OFF', '領取 15% 折扣', '领取 15% 折扣'),
+    'promo.copy': s('Copy code', '複製折扣碼', '复制折扣码'),
+    'promo.copied': s('COPIED TO CLIPBOARD', '已複製到剪貼簿', '已复制到剪贴板'),
 
     /* Home */
     'home.shopNewCollection': s('SHOP NEW COLLECTION', '選購全新系列', '选购全新系列'),
     'home.viewAll': s('VIEW ALL PRODUCTS', '查看全部商品', '查看全部商品'),
     'home.lookbook': s('SUMMER LOOKBOOK', '夏日造型冊', '夏日造型册'),
-    'home.lookbookSub': s('A visual narrative of the season.', '本季視覺敘事。', '本季视觉叙事。'),
+    'home.lookbookSub': s('STANZA I marks HSIAH\'s official international debut. "DYING POETS" explores the death of poets and the rise of "performers". We feel the necessity to create emotional antiquities curated only for the pleasures of others and associate that with our own self-worth. To the fragmented, we implore you to join us in the revival of poetry unsullied by their gaze.', '本季視覺敘事。', '本季视觉叙事。'),
     'home.collections': s('COLLECTIONS', '系列', '系列'),
     'home.waitlist': s('JOIN THE WAITLIST', '加入候補名單', '加入候补名单'),
     'home.waitlistSub': s('Be the first to know about new drops and exclusive access.', '搶先獲悉新品上架與專屬資訊。', '抢先获悉新品上架与专属资讯。'),
@@ -68,6 +79,7 @@ window.HSIAH_I18N = (function () {
     /* Pages */
     'page.featured': s('FEATURED', '精選', '精选'),
     'page.about': s('ABOUT', '關於', '关于'),
+    'page.lookbook': s('STANZA I SS26 LOOKBOOK', 'STANZA I SS26 造型冊', 'STANZA I SS26 造型册'),
     'page.contact': s('CONTACT', '聯絡', '联络'),
     'shop.stanzaI': s('STANZA I SUMMER COLLECTION', '第一詩章 · 夏日系列', '第一诗章 · 夏日系列'),
 
@@ -120,7 +132,7 @@ window.HSIAH_I18N = (function () {
     'about.getInTouch': s('GET IN TOUCH', '聯絡我們', '联系我们'),
     'about.quote': s('“Solace is found in the hallucinations of dreamers.”', '「慰藉，藏於追夢者的幻境之中。」', '「慰藉，藏于追梦者的幻境之中。」'),
     'about.body': s(
-      'Established in 2025, HSIAH is the eponymous label of designer Theo Hsiah. Hsiah interprets silhouettes and clothing through a surrealist lens, blending blurry memories of culture, experiences, and moments throughout his life. Guided by a strong belief in drawing inspiration from the subconscious mind, Hsiah takes bizarre actions to curate his collections. With a strong devotion to digital and traditional pattern-cutting alongside craftsmanship, Hsiah explores fashion as a medium to curate a visual memoir of his life, to which he can find solace when his mind becomes lonely.',
+      'HSIAH REPRESENTS THE SUBCONSCIOUS MIND USING BLURRED MEMORIES CAPTURED AND WOVEN INTO THE FIBRES OF OUR CRAFT. OUR DEVOTION TO EXPERIMENTAL PATTERN-CUTTING AND HANDCRAFT CURATES A VISUAL MEMOIR TO CONFIDE WITHIN.',
       'HSIAH 於 2025 年創立，為設計師 Theo Hsiah 的同名品牌。Hsiah 以超現實視角詮釋輪廓與服裝，將文化、經歷與人生片段的模糊記憶交織融合。深信靈感源自潛意識，他以獨特方式策劃每個系列；結合數位與傳統立體剪裁及工藝，探索時尚作為人生視覺回憶錄的媒介，在孤寂時尋得慰藉。',
       'HSIAH 于 2025 年创立，为设计师 Theo Hsiah 的同名品牌。Hsiah 以超现实视角诠释轮廓与服装，将文化、经历与人生片段的模糊记忆交织融合。深信灵感源自潜意识，他以独特方式策划每个系列；结合数字与传统立体剪裁及工艺，探索时尚作为人生视觉回忆录的媒介，在孤寂时寻得慰藉。'
     ),

@@ -13,7 +13,13 @@
     'home',
     'featured',
     'about',
+    'lookbook',
     'contact',
+    'pre-order',
+    'privacy-policy',
+    'returns',
+    'shipping',
+    'terms',
     'project-mengqi',
     'project-huangyan',
     'project-echoes',
@@ -205,6 +211,7 @@
   /* ---- DOM Cache ---- */
 
   const GATE_STORAGE_KEY = 'hsiah_gate_ok';
+  const PROMO_STORAGE_KEY = 'hsiah_promo_dismissed';
   const GATE_HASH = 'f891fff91bc7ac4e18deb84372b2dcab913d56fd882e7364a7b7aaadab0abe6e';
 
   const dom = {
@@ -213,6 +220,11 @@
     gateForm:          document.getElementById('gateForm'),
     gateInput:         document.getElementById('gateInput'),
     gateError:         document.getElementById('gateError'),
+    promo:             document.getElementById('promo'),
+    promoClose:        document.getElementById('promoClose'),
+    promoReminder:     document.getElementById('promoReminder'),
+    promoCodeBox:      document.getElementById('promoCodeBox'),
+    promoCopiedMsg:    document.getElementById('promoCopiedMsg'),
     heroVideo:         document.getElementById('heroVideo'),
     nav:               document.getElementById('nav'),
     menuBtn:           document.getElementById('menuBtn'),
@@ -264,6 +276,10 @@
   }
 
   function updateScrollMode(page) {
+    if (dom.promoReminder) {
+      dom.promoReminder.hidden = isProjectPage(page);
+    }
+
     if (menuOpen) {
       document.body.style.overflow = 'hidden';
       return;
@@ -471,6 +487,7 @@
         unlockGate();
         dom.gateError.hidden = true;
         hideGate();
+        maybeShowPromo();
         return;
       }
 
@@ -484,7 +501,102 @@
     dismissLoader();
     if (!isGateUnlocked()) {
       showGate();
+      return;
     }
+    maybeShowPromo();
+  }
+
+  /* ============================================
+     FIRST-VISIT PROMO
+     ============================================ */
+
+  const PROMO_CODE = 'DYINGPOETS';
+  let promoCopiedTimer = null;
+
+  function isPromoDismissed() {
+    try {
+      return localStorage.getItem(PROMO_STORAGE_KEY) === '1';
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function dismissPromo() {
+    try {
+      localStorage.setItem(PROMO_STORAGE_KEY, '1');
+    } catch (_) { /* ignore */ }
+    hidePromo();
+  }
+
+  function openPromo() {
+    if (!dom.promo) return;
+    if (dom.gate && dom.gate.classList.contains('active')) return;
+
+    dom.promo.classList.add('active');
+    dom.promo.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('promo-open');
+  }
+
+  function showPromo() {
+    if (isPromoDismissed()) return;
+    openPromo();
+  }
+
+  function hidePromo() {
+    if (!dom.promo) return;
+
+    dom.promo.classList.remove('active');
+    dom.promo.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('promo-open');
+  }
+
+  function maybeShowPromo() {
+    if (isPromoDismissed()) return;
+    setTimeout(showPromo, 500);
+  }
+
+  async function copyPromoCode() {
+    try {
+      await navigator.clipboard.writeText(PROMO_CODE);
+    } catch (_) {
+      const ta = document.createElement('textarea');
+      ta.value = PROMO_CODE;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'absolute';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+
+    if (dom.promoCodeBox) dom.promoCodeBox.classList.add('is-copied');
+    if (dom.promoCopiedMsg) {
+      dom.promoCopiedMsg.classList.add('visible');
+    }
+
+    if (promoCopiedTimer) window.clearTimeout(promoCopiedTimer);
+    promoCopiedTimer = window.setTimeout(() => {
+      dom.promoCodeBox?.classList.remove('is-copied');
+      dom.promoCopiedMsg?.classList.remove('visible');
+    }, 2000);
+  }
+
+  function initPromo() {
+    if (!dom.promo) return;
+
+    dom.promoClose?.addEventListener('click', dismissPromo);
+
+    dom.promoReminder?.addEventListener('click', openPromo);
+
+    dom.promoCodeBox?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      copyPromoCode();
+    });
+
+    dom.promo.addEventListener('click', (e) => {
+      if (e.target === dom.promo) dismissPromo();
+    });
   }
 
   /* ============================================
@@ -1383,6 +1495,10 @@
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
+        if (dom.promo && dom.promo.classList.contains('active')) {
+          dismissPromo();
+          return;
+        }
         if (dom.projectLightbox && dom.projectLightbox.classList.contains('active')) {
           closeProjectLightbox();
           return;
@@ -1448,6 +1564,7 @@
     initMenuUtils();
     bindEvents();
     initGate();
+    initPromo();
     currentCurrency = getStoredCurrency();
     applyLocale(currentLocale);
     updateCartBadge();
