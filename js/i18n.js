@@ -18,7 +18,7 @@ window.HSIAH_I18N = (function () {
     /* Nav */
     'nav.about': s('About', '關於', '关于'),
     'nav.lookbook': s('Lookbook', '造型冊', '造型册'),
-    'nav.shop': s('Shop', '商店', '商店'),
+    'nav.shop': s('Preorder', '預購', '预购'),
     'nav.featured': s('Featured', '精選', '精选'),
     'nav.archives': s('Archives', '典藏', '典藏'),
     'nav.contact': s('Contact', '聯絡', '联络'),
