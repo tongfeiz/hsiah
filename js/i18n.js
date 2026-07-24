@@ -51,7 +51,8 @@ window.HSIAH_I18N = (function () {
     'promo.copied': s('COPIED TO CLIPBOARD', '已複製到剪貼簿', '已复制到剪贴板'),
 
     /* Home */
-    'home.shopNewCollection': s('SHOP NEW COLLECTION', '選購全新系列', '选购全新系列'),
+    'home.shopNewCollection': s('PREORDER NEW COLLECTION', '預購全新系列', '预购全新系列'),
+    'home.preorderNotice': s('ORDERS FROM THE HSIAH STANZA I SS26 COLLECTION ARE CURRENTLY ON A PRE-ORDER BASIS. DELIVERIES WILL BEGIN IN AUGUST 2026.', 'HSIAH STANZA I SS26 系列現以預購形式接受訂單。預計於 2026 年 8 月開始發貨。', 'HSIAH STANZA I SS26 系列现以预购形式接受订单。预计于 2026 年 8 月开始发货。'),
     'home.viewAll': s('VIEW ALL PRODUCTS', '查看全部商品', '查看全部商品'),
     'home.lookbook': s('SUMMER LOOKBOOK', '夏日造型冊', '夏日造型册'),
     'home.lookbookSub': s('STANZA I marks HSIAH\'s official international debut. "DYING POETS" explores the death of poets and the rise of "performers". We feel the necessity to create emotional antiquities curated only for the pleasures of others and associate that with our own self-worth. To the fragmented, we implore you to join us in the revival of poetry unsullied by their gaze.', '本季視覺敘事。', '本季视觉叙事。'),
@@ -80,6 +81,7 @@ window.HSIAH_I18N = (function () {
     'page.featured': s('FEATURED', '精選', '精选'),
     'page.about': s('ABOUT', '關於', '关于'),
     'page.lookbook': s('STANZA I SS26 LOOKBOOK', 'STANZA I SS26 造型冊', 'STANZA I SS26 造型册'),
+    'page.lookbookSub': s('THE DEATH OF POETS GIVES RISE TO PERFORMERS. WE CREATE EMOTIONAL ANTIQUITIES CURATED ONLY FOR THE PLEASURE OF OTHERS TO DEEM OUR OWN SELF-WORTH. TO THE FRAGMENTED, HSIAH IMPLORES YOU TO JOIN US IN THE REVIVAL OF POETRY UNSULLIED BY THEIR GAZE.', '詩人之死催生表演者。我們創造僅為取悅他人、以界定自我價值的情緒古物。致破碎者，HSIAH 懇請你與我們一同復興未被其目光玷污的詩。', '诗人之死催生表演者。我们创造仅为取悦他人、以界定自我价值的情绪古物。致破碎者，HSIAH 恳请你与我们一同复兴未被其目光玷污的诗。'),
     'page.contact': s('CONTACT', '聯絡', '联络'),
     'shop.stanzaI': s('STANZA I SUMMER COLLECTION', '第一詩章 · 夏日系列', '第一诗章 · 夏日系列'),
 
