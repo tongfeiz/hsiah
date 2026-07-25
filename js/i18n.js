@@ -69,10 +69,12 @@ window.HSIAH_I18N = (function () {
 
     /* Forms */
     'form.name': s('NAME', '姓名', '姓名'),
-    'form.email': s('EMAIL', '電郵', '电邮'),
+    'form.email': s('YOUR EMAIL', '你的電郵', '你的电邮'),
     'form.message': s('MESSAGE', '訊息', '讯息'),
     'form.send': s('SEND MESSAGE', '傳送訊息', '发送讯息'),
+    'form.sending': s('SENDING…', '傳送中…', '发送中…'),
     'form.sent': s('SENT ✓', '已傳送 ✓', '已发送 ✓'),
+    'form.error': s('FAILED — TRY AGAIN', '傳送失敗 — 請重試', '发送失败 — 请重试'),
 
     /* Footer */
     'footer.rights': s('ALL RIGHTS RESERVED', '版權所有', '版权所有'),

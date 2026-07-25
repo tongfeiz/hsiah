@@ -1381,9 +1381,21 @@
 
   function handleContact(e) {
     e.preventDefault();
-    const inputs = e.target.querySelectorAll('input, textarea');
-    inputs.forEach(i => { i.value = ''; });
-    const btn = e.target.querySelector('button');
+    const form = e.target;
+    const name = form.querySelector('input[type="text"]')?.value.trim();
+    const message = form.querySelector('textarea')?.value.trim();
+    if (!name || !message) return;
+
+    const params = new URLSearchParams({
+      view: 'cm',
+      fs: '1',
+      to: 'hsiahofficial@gmail.com',
+      su: `Message from ${name}`,
+      body: message,
+    });
+    window.open(`https://mail.google.com/mail/?${params}`, '_blank', 'noopener');
+
+    const btn = form.querySelector('button');
     btn.textContent = t('form.sent') || 'SENT ✓';
     setTimeout(() => { btn.textContent = t('form.send') || 'SEND MESSAGE'; }, 2000);
   }
