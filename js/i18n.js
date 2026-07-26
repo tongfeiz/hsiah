@@ -50,6 +50,16 @@ window.HSIAH_I18N = (function () {
     'promo.copy': s('Copy code', '複製折扣碼', '复制折扣码'),
     'promo.copied': s('COPIED TO CLIPBOARD', '已複製到剪貼簿', '已复制到剪贴板'),
 
+    /* Search */
+    'search.title': s('SEARCH', '搜尋', '搜索'),
+    'search.label': s('Search site', '搜尋網站', '搜索网站'),
+    'search.placeholder': s('Search products, archives, pages…', '搜尋商品、典藏、頁面…', '搜索商品、典藏、页面…'),
+    'search.noResults': s('No results found.', '找不到結果。', '找不到结果。'),
+    'search.close': s('Close', '關閉', '关闭'),
+    'search.category.shop': s('Shop', '商店', '商店'),
+    'search.category.archive': s('Archives', '典藏', '典藏'),
+    'search.category.page': s('Page', '頁面', '页面'),
+
     /* Home */
     'home.shopNewCollection': s('PREORDER NEW COLLECTION', '預購全新系列', '预购全新系列'),
     'home.preorderNotice': s('ORDERS FROM THE HSIAH STANZA I SS26 COLLECTION ARE CURRENTLY ON A PRE-ORDER BASIS. DELIVERIES WILL BEGIN IN AUGUST 2026.', 'HSIAH STANZA I SS26 系列現以預購形式接受訂單。預計於 2026 年 8 月開始發貨。', 'HSIAH STANZA I SS26 系列现以预购形式接受订单。预计于 2026 年 8 月开始发货。'),

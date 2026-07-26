@@ -177,6 +177,228 @@
     },
   ];
 
+  const SHOPIFY_PRODUCTS = [
+    {
+      title: 'THE CYNIC EMBROIDERED EMBLEM TOP (BLACK)',
+      href: `${SHOPIFY_STORE_URL}products/stanza-i-line-i-the-cynic-embroidered-logo-tee-black`,
+      keywords: ['cynic', 'embroidered', 'emblem', 'top', 'tee', 'black', 'stanza', 'line i', 'logo'],
+    },
+    {
+      title: 'OUR SOUL BODY CON EMBLEM TOP (BLACK)',
+      href: `${SHOPIFY_STORE_URL}products/stanza-i-line-ii-our-soul-body-con-emblem-top-black`,
+      keywords: ['soul', 'body', 'bodycon', 'emblem', 'top', 'black', 'stanza', 'line ii', 'tank'],
+    },
+    {
+      title: "FOOL'S FOLLY TEARDROP JEANS",
+      href: `${SHOPIFY_STORE_URL}products/stanza-i-line-iii-fools-folly-teardrop-jeans`,
+      keywords: ['fool', 'folly', 'teardrop', 'jeans', 'denim', 'stanza', 'line iii', 'paints teardrops'],
+    },
+    {
+      title: 'TOTEM SILK BANDANA',
+      href: `${SHOPIFY_STORE_URL}products/stanza-i-line-iv-that-spirals-totem-silk-bandana`,
+      keywords: ['totem', 'silk', 'bandana', 'chaotic', 'stanza', 'line iv', 'spirals'],
+    },
+  ];
+
+  const PRODUCT_SHOPIFY_LINKS = {
+    'embroidered-logo-tee': `${SHOPIFY_STORE_URL}products/stanza-i-line-i-the-cynic-embroidered-logo-tee-black`,
+    'bodycon-logo-tank': `${SHOPIFY_STORE_URL}products/stanza-i-line-ii-our-soul-body-con-emblem-top-black`,
+    'teardrop-jeans': `${SHOPIFY_STORE_URL}products/stanza-i-line-iii-fools-folly-teardrop-jeans`,
+    'chaotic-totem-bandana': `${SHOPIFY_STORE_URL}products/stanza-i-line-iv-that-spirals-totem-silk-bandana`,
+  };
+
+  function buildNameKeywords(...names) {
+    const keywords = [];
+
+    names.flat().forEach((name) => {
+      const normalized = String(name || '')
+        .toLowerCase()
+        .replace(/[''']/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      if (!normalized) return;
+
+      keywords.push(normalized);
+      normalized.split(/\s+and\s+|\s*,\s*|\s+/).forEach((part) => {
+        const piece = part.trim();
+        if (piece.length >= 2) keywords.push(piece);
+      });
+    });
+
+    return keywords;
+  }
+
+  const ARCHIVE_SEARCH = [
+    {
+      title: '夢棄少年',
+      subtitle: 'Archives I',
+      page: 'project-mengqi',
+      keywords: [
+        'archives i', 'archive 1', 'mengqi', 'collection', 'project',
+        ...buildNameKeywords(
+          'Constance Hsiah', 'Charlie Poon', 'Jasmin Sin', 'Din Trota',
+          'Leo Seitz', 'Feyza Berca Senturk', 'Samantha Lam'
+        ),
+      ],
+    },
+    {
+      title: '謊言以夏為終',
+      subtitle: 'Archives II',
+      page: 'project-huangyan',
+      keywords: [
+        'archives ii', 'archive 2', 'huangyan', 'summer lies', 'collection', 'project',
+        ...buildNameKeywords(
+          'Tongfei Zhu', 'Constance Hsiah', 'Maya Yoshino', 'Jasmin Sin',
+          'Din Trota', 'Leo Seitz', 'Feyza Berca Senturk', 'Samantha Lam'
+        ),
+      ],
+    },
+    {
+      title: 'ECHOES',
+      subtitle: 'Archives III',
+      page: 'project-echoes',
+      keywords: [
+        'archives iii', 'archive 3', 'echoes', 'garments', 'collection', 'project',
+        ...buildNameKeywords(
+          'Feyza Berca Senturk', 'Erika Kaija', 'Ural Turan', 'Gunes Dincer',
+          'Nisan Akdag', 'Fede Rico', 'Petrichor', 'Lara Girling Gruas',
+          'Eda Coskun', 'Zeynep Kerpisci', 'Galleria Objets'
+        ),
+      ],
+    },
+    {
+      title: 'SKOPEIN FOBOS',
+      subtitle: 'Archives IV',
+      page: 'project-skopein',
+      keywords: [
+        'archives iv', 'archive 4', 'skopein', 'fobos', 'short film', 'campaign', 'collection', 'project',
+        'hwang broz',
+        ...buildNameKeywords(
+          'Wang Rui', 'Yuming Huang', 'Constance Hsiah', 'Chu Qi',
+          'Alice Han', 'DZZI Studio', 'Yaqi Li', 'Jean Aviat', 'Kyra Lui',
+          'Chen Lin', 'Zeynep Kerpisci', 'Feyza Berca Senturk'
+        ),
+      ],
+    },
+    {
+      title: 'TARANTELLA',
+      subtitle: 'Archives V',
+      page: 'project-tarantella',
+      keywords: [
+        'archives v', 'archive 5', 'tarantella', 'queen', 'collection', 'project',
+        ...buildNameKeywords(
+          'Chen Lin', 'Constance Hsiah', 'Yaqi', 'Amie Stafford', 'Liu Siyi',
+          'Alice Han', 'DZZI Studio', 'Kyra Lui', 'Ethan Davies', 'Zeynep Kerpisci'
+        ),
+      ],
+    },
+  ];
+
+  const SEARCH_INDEX = [
+    ...SHOPIFY_PRODUCTS.map((item) => ({
+      title: item.title,
+      category: 'shop',
+      href: item.href,
+      external: true,
+      keywords: item.keywords,
+    })),
+    ...PRODUCTS.map((p) => ({
+      title: p.name,
+      category: 'shop',
+      href: PRODUCT_SHOPIFY_LINKS[p.slug] || SHOPIFY_STORE_URL,
+      external: true,
+      keywords: [
+        p.slug.replace(/-/g, ' '),
+        p.stanza.replace(/-/g, ' '),
+        'stanza i',
+        'collection',
+        'product',
+        'shop',
+      ],
+    })),
+    {
+      title: 'Preorder Shop',
+      category: 'shop',
+      href: SHOPIFY_STORE_URL,
+      external: true,
+      keywords: ['shop', 'preorder', 'pre-order', 'store', 'buy', 'products', 'collection', 'stanza', 'ss26'],
+    },
+    ...ARCHIVE_SEARCH.map((archive) => ({
+      title: archive.title,
+      subtitle: archive.subtitle,
+      category: 'archive',
+      page: archive.page,
+      keywords: archive.keywords,
+    })),
+    {
+      title: 'Archives',
+      category: 'page',
+      page: 'project-mengqi',
+      keywords: ['archives', 'archive', 'collections', 'projects', 'catalog'],
+    },
+    {
+      title: 'About',
+      category: 'page',
+      page: 'about',
+      keywords: ['about', 'hsiah', 'brand', 'story', '夏'],
+    },
+    {
+      title: 'STANZA I SS26 LOOKBOOK',
+      category: 'page',
+      page: 'lookbook',
+      keywords: ['lookbook', 'summer lookbook', 'stanza', 'ss26', 'dying poets', 'campaign', 'visual'],
+    },
+    {
+      title: 'Featured',
+      category: 'page',
+      page: 'featured',
+      keywords: [
+        'featured', 'magazine', 'photoshoot', 'editorial', 'collaboration', 'installation',
+        '0159', 'onyx', 'prosienta', 'stalagmite',
+        ...buildNameKeywords('Chen Lin'),
+      ],
+    },
+    {
+      title: 'Contact',
+      category: 'page',
+      page: 'contact',
+      keywords: ['contact', 'email', 'instagram', 'reach', 'support'],
+    },
+    {
+      title: 'Pre-Order',
+      category: 'page',
+      page: 'pre-order',
+      keywords: ['pre-order', 'preorder', 'order', 'delivery', 'august', 'stanza'],
+    },
+    {
+      title: 'Shipping',
+      category: 'page',
+      page: 'shipping',
+      keywords: ['shipping', 'delivery', 'dispatch', 'international', 'tracking'],
+    },
+    {
+      title: 'Returns & Exchanges',
+      category: 'page',
+      page: 'returns',
+      keywords: ['returns', 'exchange', 'refund', 'policy'],
+    },
+    {
+      title: 'Privacy Policy',
+      category: 'page',
+      page: 'privacy-policy',
+      keywords: ['privacy', 'policy', 'data', 'cookies'],
+    },
+    {
+      title: 'Terms & Conditions',
+      category: 'page',
+      page: 'terms',
+      keywords: ['terms', 'conditions', 'legal', 'service'],
+    },
+  ];
+
+  const SEARCH_MAX_RESULTS = 5;
+
   const CART_STORAGE_KEY = 'hsiah-cart';
 
   let checkoutBanner = null;
@@ -237,7 +459,18 @@
     cartBagCount:      document.getElementById('cartBagCount'),
     featuredGrid:      document.getElementById('featuredGrid'),
     featuredVideos:    document.getElementById('featuredVideos'),
+    searchOverlay:     document.getElementById('search'),
+    searchBtn:         document.getElementById('searchBtn'),
+    searchClose:       document.getElementById('searchClose'),
+    searchForm:        document.getElementById('searchForm'),
+    searchInput:       document.getElementById('searchInput'),
+    searchResults:     document.getElementById('searchResults'),
+    searchEmpty:       document.getElementById('searchEmpty'),
   };
+
+  let searchOpen = false;
+  let searchActiveIndex = -1;
+  let searchResultsCache = [];
 
   let currentPage   = 'home';
   let menuOpen       = false;
@@ -395,6 +628,7 @@
     updateCartBadge();
     updateFeaturedCaptions();
     syncMenuUtilActiveState();
+    applySearchI18n();
   }
 
   function updateFeaturedCaptions() {
@@ -1449,6 +1683,238 @@
   }
 
   /* ============================================
+     SEARCH
+     ============================================ */
+
+  function normalizeSearchText(text) {
+    return String(text || '')
+      .toLowerCase()
+      .replace(/[''']/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function searchTokens(text) {
+    return normalizeSearchText(text).split(/[\s\-_/]+/).filter((token) => token.length > 1);
+  }
+
+  function getSearchCategoryLabel(category) {
+    const key = category === 'shop'
+      ? 'search.category.shop'
+      : category === 'archive'
+        ? 'search.category.archive'
+        : 'search.category.page';
+    return t(key) || category;
+  }
+
+  function scoreSearchEntry(entry, query) {
+    const q = normalizeSearchText(query);
+    if (!q) return 0;
+
+    const fields = [
+      entry.title,
+      entry.subtitle || '',
+      ...(entry.keywords || []),
+    ].map(normalizeSearchText);
+
+    let score = 0;
+
+    fields.forEach((field, index) => {
+      if (!field) return;
+      const isTitle = index === 0;
+
+      if (field === q) score += isTitle ? 120 : 90;
+      else if (field.startsWith(q)) score += isTitle ? 95 : 70;
+      else if (field.includes(q)) score += isTitle ? 80 : 55;
+      else if (q.includes(field) && field.length >= 3) score += isTitle ? 45 : 35;
+    });
+
+    searchTokens(q).forEach((token) => {
+      fields.forEach((field, index) => {
+        if (field.includes(token)) score += index === 0 ? 18 : 12;
+      });
+    });
+
+    return score;
+  }
+
+  function findSearchResults(query) {
+    const ranked = SEARCH_INDEX
+      .map((entry) => ({ entry, score: scoreSearchEntry(entry, query) }))
+      .filter(({ score }) => score > 0)
+      .sort((a, b) => b.score - a.score || a.entry.title.localeCompare(b.entry.title));
+
+    const seen = new Set();
+    const unique = [];
+
+    ranked.forEach(({ entry }) => {
+      const key = entry.page || entry.href || entry.title;
+      if (seen.has(key)) return;
+      seen.add(key);
+      unique.push(entry);
+    });
+
+    return unique.slice(0, SEARCH_MAX_RESULTS);
+  }
+
+  function applySearchI18n() {
+    if (!i18n) return;
+
+    document.querySelectorAll('#search [data-i18n]').forEach((el) => {
+      const val = i18n.t(el.dataset.i18n, currentLocale);
+      if (val != null) el.textContent = val;
+    });
+
+    document.querySelectorAll('#search [data-i18n-placeholder]').forEach((el) => {
+      const val = i18n.t(el.dataset.i18nPlaceholder, currentLocale);
+      if (val != null) el.placeholder = val;
+    });
+
+    document.querySelectorAll('#search [data-i18n-aria]').forEach((el) => {
+      const val = i18n.t(el.dataset.i18nAria, currentLocale);
+      if (val != null) el.setAttribute('aria-label', val);
+    });
+
+    if (searchOpen) renderSearchResults(dom.searchInput?.value || '');
+  }
+
+  function renderSearchResults(query) {
+    if (!dom.searchResults || !dom.searchEmpty) return;
+
+    const trimmed = query.trim();
+    searchResultsCache = trimmed ? findSearchResults(trimmed) : [];
+    searchActiveIndex = searchResultsCache.length ? 0 : -1;
+
+    dom.searchResults.innerHTML = searchResultsCache.map((entry, index) => {
+      const meta = [entry.subtitle, getSearchCategoryLabel(entry.category)].filter(Boolean).join(' · ');
+      return `
+      <li role="presentation">
+        <button type="button" class="search__result${index === searchActiveIndex ? ' is-active' : ''}"
+          role="option" aria-selected="${index === searchActiveIndex ? 'true' : 'false'}"
+          data-search-index="${index}">
+          <span class="search__result-title">${entry.title}</span>
+          <span class="search__result-meta">${meta}</span>
+        </button>
+      </li>
+    `;
+    }).join('');
+
+    dom.searchEmpty.hidden = !trimmed || searchResultsCache.length > 0;
+    if (!trimmed) dom.searchEmpty.hidden = true;
+  }
+
+  function followSearchEntry(entry) {
+    if (!entry) return;
+
+    closeSearch();
+
+    if (entry.external && entry.href) {
+      window.open(entry.href, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    if (entry.page) navigate(entry.page);
+  }
+
+  function openSearch() {
+    if (!dom.searchOverlay) return;
+
+    if (menuOpen) toggleMenu();
+    closeNavDropdowns();
+    if (dom.promo?.classList.contains('active')) dismissPromo();
+
+    searchOpen = true;
+    dom.searchOverlay.classList.add('active');
+    dom.searchOverlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('search-open');
+
+    if (dom.searchInput) {
+      dom.searchInput.value = '';
+      renderSearchResults('');
+      window.setTimeout(() => dom.searchInput.focus(), 50);
+    }
+  }
+
+  function closeSearch() {
+    if (!dom.searchOverlay) return;
+
+    searchOpen = false;
+    searchActiveIndex = -1;
+    searchResultsCache = [];
+    dom.searchOverlay.classList.remove('active');
+    dom.searchOverlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('search-open');
+
+    if (dom.searchInput) dom.searchInput.value = '';
+    if (dom.searchResults) dom.searchResults.innerHTML = '';
+    if (dom.searchEmpty) dom.searchEmpty.hidden = true;
+  }
+
+  function setSearchActiveIndex(index) {
+    if (!dom.searchResults || !searchResultsCache.length) return;
+
+    searchActiveIndex = Math.max(0, Math.min(index, searchResultsCache.length - 1));
+    dom.searchResults.querySelectorAll('.search__result').forEach((btn, i) => {
+      const active = i === searchActiveIndex;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-selected', String(active));
+    });
+  }
+
+  function submitSearch() {
+    const query = dom.searchInput?.value.trim() || '';
+    if (!query) return;
+
+    const results = searchResultsCache.length ? searchResultsCache : findSearchResults(query);
+    if (!results.length) {
+      renderSearchResults(query);
+      return;
+    }
+
+    const pick = searchActiveIndex >= 0 ? results[searchActiveIndex] : results[0];
+    followSearchEntry(pick);
+  }
+
+  function initSearch() {
+    if (!dom.searchOverlay || !dom.searchBtn) return;
+
+    dom.searchBtn.addEventListener('click', openSearch);
+    dom.searchClose?.addEventListener('click', closeSearch);
+
+    dom.searchOverlay.addEventListener('click', (e) => {
+      if (e.target === dom.searchOverlay) closeSearch();
+    });
+
+    dom.searchForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      submitSearch();
+    });
+
+    dom.searchInput?.addEventListener('input', () => {
+      renderSearchResults(dom.searchInput.value);
+    });
+
+    dom.searchResults?.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-search-index]');
+      if (!btn) return;
+      const index = Number(btn.dataset.searchIndex);
+      followSearchEntry(searchResultsCache[index]);
+    });
+
+    dom.searchInput?.addEventListener('keydown', (e) => {
+      if (!searchResultsCache.length) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSearchActiveIndex(searchActiveIndex + 1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSearchActiveIndex(searchActiveIndex - 1);
+      }
+    });
+  }
+
+  /* ============================================
      EVENT LISTENERS
      ============================================ */
 
@@ -1467,6 +1933,10 @@
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
+        if (searchOpen) {
+          closeSearch();
+          return;
+        }
         if (dom.promo && dom.promo.classList.contains('active')) {
           dismissPromo();
           return;
@@ -1537,6 +2007,7 @@
     bindEvents();
     initGate();
     initPromo();
+    initSearch();
     currentCurrency = getStoredCurrency();
     applyLocale(currentLocale);
     updateCartBadge();
