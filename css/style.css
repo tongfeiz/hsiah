@@ -1184,6 +1184,19 @@ body.gate-open .promo-reminder {
 .page[data-page="lookbook"] .lookbook__grid {
   margin-top: 0;
   gap: 0.85rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+}
+
+.page[data-page="lookbook"] .lookbook__item {
+  aspect-ratio: 1 / 1;
+}
+
+.page[data-page="lookbook"] .lookbook__item--tall,
+.page[data-page="lookbook"] .lookbook__item--wide {
+  grid-row: auto;
+  grid-column: auto;
+  aspect-ratio: 1 / 1;
 }
 
 /* ============================================
@@ -2752,6 +2765,10 @@ body.gate-open .promo-reminder {
     grid-template-columns: 1fr;
   }
 
+  .page[data-page="lookbook"] .lookbook__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .lookbook__item--tall {
     grid-row: span 1;
     aspect-ratio: 4 / 3;
@@ -2847,5 +2864,9 @@ body.gate-open .promo-reminder {
   .footer__nav {
     flex-direction: column;
     gap: 0.45rem;
+  }
+
+  .page[data-page="lookbook"] .lookbook__grid {
+    grid-template-columns: 1fr;
   }
 }
