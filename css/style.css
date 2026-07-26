@@ -2221,11 +2221,27 @@ body.search-open .promo-reminder {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 .about-editorial {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   text-align: left;
+}
+
+.about-credit {
+  margin-top: 2rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray);
+  transition: color 0.25s ease;
+}
+
+.about-credit:hover {
+  color: var(--white);
 }
 
 .about-quote {
@@ -2783,6 +2799,10 @@ body.search-open .promo-reminder {
 
   .about-content {
     grid-template-columns: 1fr;
+  }
+
+  .about-editorial {
+    justify-content: flex-start;
   }
 
   .about-image {
