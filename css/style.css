@@ -1352,6 +1352,15 @@ body.search-open .promo-reminder {
   aspect-ratio: 21 / 9;
 }
 
+.page[data-page="home"] .lookbook__grid {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+}
+
+.page[data-page="home"] .lookbook__item {
+  aspect-ratio: 816 / 1056;
+}
+
 .page[data-page="lookbook"] > .section {
   padding-top: 2rem;
 }
@@ -1371,14 +1380,19 @@ body.search-open .promo-reminder {
 }
 
 .page[data-page="lookbook"] .lookbook__item {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 816 / 1056;
+  cursor: zoom-in;
+}
+
+.page[data-page="lookbook"] .lookbook__item::before {
+  pointer-events: none;
 }
 
 .page[data-page="lookbook"] .lookbook__item--tall,
 .page[data-page="lookbook"] .lookbook__item--wide {
   grid-row: auto;
   grid-column: auto;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 816 / 1056;
 }
 
 /* ============================================
@@ -2967,6 +2981,10 @@ body.search-open .promo-reminder {
     grid-template-columns: 1fr;
   }
 
+  .page[data-page="home"] .lookbook__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .page[data-page="lookbook"] .lookbook__grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -3069,6 +3087,10 @@ body.search-open .promo-reminder {
   }
 
   .page[data-page="lookbook"] .lookbook__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page[data-page="home"] .lookbook__grid {
     grid-template-columns: 1fr;
   }
 }

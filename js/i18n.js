@@ -64,6 +64,7 @@ window.HSIAH_I18N = (function () {
     'home.shopNewCollection': s('PREORDER NEW COLLECTION', '預購全新系列', '预购全新系列'),
     'home.preorderNotice': s('ORDERS FROM THE HSIAH STANZA I SS26 COLLECTION ARE CURRENTLY ON A PRE-ORDER BASIS. DELIVERIES WILL BEGIN IN AUGUST 2026.', 'HSIAH STANZA I SS26 系列現以預購形式接受訂單。預計於 2026 年 8 月開始發貨。', 'HSIAH STANZA I SS26 系列现以预购形式接受订单。预计于 2026 年 8 月开始发货。'),
     'home.viewAll': s('VIEW ALL PRODUCTS', '查看全部商品', '查看全部商品'),
+    'home.lookbookCta': s('SS26 LOOKBOOK', 'SS26 造型冊', 'SS26 造型册'),
     'home.lookbook': s('SUMMER LOOKBOOK', '夏日造型冊', '夏日造型册'),
     'home.lookbookSub': s('"DYING POETS" explores the death of poets and the rise of "performers". We feel the necessity to create emotional antiquities curated only for the pleasures of others and associate that with our own self-worth. To the fragmented, we implore you to join us in the revival of poetry unsullied by their gaze.', '本季視覺敘事。', '本季视觉叙事。'),
     'home.collections': s('COLLECTIONS', '系列', '系列'),

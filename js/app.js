@@ -434,6 +434,7 @@
 
   const GATE_STORAGE_KEY = 'hsiah_gate_ok';
   const PROMO_STORAGE_KEY = 'hsiah_promo_dismissed';
+  const GATE_ENABLED = false;
   const GATE_HASH = 'f891fff91bc7ac4e18deb84372b2dcab913d56fd882e7364a7b7aaadab0abe6e';
 
   const dom = {
@@ -670,6 +671,7 @@
      ============================================ */
 
   function isGateUnlocked() {
+    if (!GATE_ENABLED) return true;
     try {
       return localStorage.getItem(GATE_STORAGE_KEY) === '1';
     } catch (_) {
@@ -692,7 +694,7 @@
   }
 
   function showGate() {
-    if (!dom.gate) return;
+    if (!GATE_ENABLED || !dom.gate) return;
     dom.gate.classList.add('active');
     dom.gate.setAttribute('aria-hidden', 'false');
     document.body.classList.add('gate-open');
@@ -1594,6 +1596,10 @@
 
     els.forEach(el => {
       el.classList.remove('revealed');
+      if (currentPage === 'lookbook') {
+        el.classList.add('revealed');
+        return;
+      }
       revealObserver.observe(el);
     });
   }
@@ -1652,16 +1658,16 @@
     updateScrollMode(currentPage);
   }
 
-  function openProjectLightbox(img) {
-    if (!dom.projectLightbox) return;
+  function openLightbox(src, alt, scrollEl) {
+    if (!dom.projectLightbox || !src) return;
 
     const lightboxImg = dom.projectLightbox.querySelector('.project-lightbox__img');
     if (!lightboxImg) return;
 
-    lightboxImg.src = img.currentSrc || img.src;
-    lightboxImg.alt = img.alt || '';
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || '';
 
-    lightboxScrollEl = img.closest('.project-layout__scroll');
+    lightboxScrollEl = scrollEl || null;
     if (lightboxScrollEl) lightboxScrollEl.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
 
@@ -1669,7 +1675,30 @@
     dom.projectLightbox.setAttribute('aria-hidden', 'false');
   }
 
+  function getLookbookItemSrc(item) {
+    if (item.dataset.lightboxSrc) return item.dataset.lightboxSrc;
+
+    const style = item.getAttribute('style') || '';
+    const match = style.match(/background-image:\s*url\(['"]?([^'")]+)/i);
+    return match ? match[1] : '';
+  }
+
+  function openProjectLightbox(img) {
+    openLightbox(
+      img.currentSrc || img.src,
+      img.alt || '',
+      img.closest('.project-layout__scroll')
+    );
+  }
+
   function handleProjectLightboxClick(e) {
+    const lookbookItem = e.target.closest('.page[data-page="lookbook"] .lookbook__item');
+    if (lookbookItem && currentPage === 'lookbook') {
+      e.preventDefault();
+      openLightbox(getLookbookItemSrc(lookbookItem), 'Lookbook photo');
+      return;
+    }
+
     const img = e.target.closest('.project-grid__item img, .featured-masonry__media img');
     if (img && (isProjectPage(currentPage) || currentPage === 'featured')) {
       e.preventDefault();
